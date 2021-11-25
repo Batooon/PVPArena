@@ -1,0 +1,5 @@
+"F:\CLion 2021.2.1\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - MinGW Makefiles" "F:\Projects 2021\PVPArena"
+-- Found SFML 2.5.1 in C:/SFML-2.5.1/include
+-- Configuring done
+-- Generating done
+-- Build files have been written to: F:/Projects 2021/PVPArena/cmake-build-debug
