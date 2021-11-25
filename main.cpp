@@ -41,7 +41,7 @@ void TextureHolder::load(Textures::ID id, const std::string& filename)
 		throw std::runtime_error("TextureHolder::load - Failed to load " + filename);
 	}
 
-	textureMap.insert(std::make_pair(id, std::move(texture)));
+	auro inserted = textureMap.insert(std::make_pair(id, std::move(texture)));
 }
 
 const sf::Texture &TextureHolder::get(Textures::ID id) const
