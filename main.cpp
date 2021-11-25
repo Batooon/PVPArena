@@ -19,6 +19,8 @@ private:
 
 	sf::RenderWindow window;
 	sf::CircleShape player;
+	float playerSpeed = 50.f;
+	const sf::Time TimePerFrame = sf::seconds(1.f / 60.f);
 
 	bool movingUp = false, movingDown = false, movingLeft = false, movingRight = false;
 };
@@ -32,11 +34,20 @@ Game::Game():window(sf::VideoMode(640, 480), "SFML"), player()
 
 void Game::run()
 {
+	window.setVerticalSyncEnabled(true);
+
+	sf::Clock clock;
+	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	while(window.isOpen())
 	{
-		processEvents();
+		timeSinceLastUpdate += clock.restart();
+		while(timeSinceLastUpdate > TimePerFrame)
+		{
+			timeSinceLastUpdate -= TimePerFrame;
+			processEvents();
+			update(TimePerFrame);
+		}
 		render();
-		update();
 	}
 }
 
@@ -76,14 +87,14 @@ void Game::update(sf::Time deltaTime)
 {
 	sf::Vector2f movement(0.f, 0.f);
 	if(movingUp)
-		movement.y -= 1.f;
+		movement.y -= playerSpeed;
 	if(movingDown)
-		movement.y += 1.f;
+		movement.y += playerSpeed;
 	if(movingLeft)
-		movement.x -= 1.f;
+		movement.x -= playerSpeed;
 	if(movingRight)
-		movement.x += 1.f;
-	player.move(movement);
+		movement.x += playerSpeed;
+	player.move(movement * deltaTime.asSeconds());
 }
 
 void Game::render()
