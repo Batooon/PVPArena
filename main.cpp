@@ -18,18 +18,21 @@ private:
 	void render();
 
 	sf::RenderWindow window;
-	sf::CircleShape player;
-	float playerSpeed = 50.f;
+	sf::Sprite player;
+	sf::Texture playerTexture;
+	float playerSpeed = 100.f;
 	const sf::Time TimePerFrame = sf::seconds(1.f / 60.f);
 
 	bool movingUp = false, movingDown = false, movingLeft = false, movingRight = false;
 };
 
-Game::Game():window(sf::VideoMode(640, 480), "SFML"), player()
+Game::Game():window(sf::VideoMode(640, 480), "SFML"), playerTexture(), player()
 {
-	player.setRadius(40.f);
+	if(playerTexture.loadFromFile("tanknsoldier/icon/energy/energy-export1.png") == false)
+	{
+	}
+	player = sf::Sprite(playerTexture);
 	player.setPosition(100.f, 100.f);
-	player.setFillColor(sf::Color::Cyan);
 }
 
 void Game::run()
