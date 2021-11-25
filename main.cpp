@@ -1,5 +1,20 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <cmath>
+
+template<class VectorT>
+sf::Vector2f Normalize(VectorT vector)
+{
+	float length = sqrt((vector.x * vector.x) + (vector.y * vector.y));
+	if(length != 0)
+		return sf::Vector2f(vector.x / length, vector.y / length);
+	return (sf::Vector2f)vector;
+}
+
+namespace Textures
+{
+	enum ID{Landscape, Player};
+}
 
 class Game
 {
@@ -20,15 +35,15 @@ private:
 	sf::RenderWindow window;
 	sf::Sprite player;
 	sf::Texture playerTexture;
-	float playerSpeed = 100.f;
+	float playerSpeed = 250.f;
 	const sf::Time TimePerFrame = sf::seconds(1.f / 60.f);
 
 	bool movingUp = false, movingDown = false, movingLeft = false, movingRight = false;
 };
 
-Game::Game():window(sf::VideoMode(640, 480), "SFML"), playerTexture(), player()
+Game::Game():window(sf::VideoMode(1920, 1080), "SFML"), playerTexture(), player()
 {
-	if(playerTexture.loadFromFile("tanknsoldier/icon/energy/energy-export1.png") == false)
+	if(playerTexture.loadFromFile("tanknsoldier/enemy/enemy 1/idle/enemy1idle1.png") == false)
 	{
 	}
 	player = sf::Sprite(playerTexture);
@@ -68,7 +83,7 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 
 void Game::processEvents()
 {
-	sf::Event event;
+	sf::Event event{};
 	while(window.pollEvent(event))
 	{
 		switch(event.type)
@@ -88,15 +103,17 @@ void Game::processEvents()
 
 void Game::update(sf::Time deltaTime)
 {
-	sf::Vector2f movement(0.f, 0.f);
+	sf::Vector2i direction(0, 0);
+	sf::Vector2f movement;
 	if(movingUp)
-		movement.y -= playerSpeed;
+		direction.y = -1;
 	if(movingDown)
-		movement.y += playerSpeed;
+		direction.y = 1;
 	if(movingLeft)
-		movement.x -= playerSpeed;
+		direction.x = -1;
 	if(movingRight)
-		movement.x += playerSpeed;
+		direction.x = 1;
+	movement = Normalize(direction) * playerSpeed;
 	player.move(movement * deltaTime.asSeconds());
 }
 
