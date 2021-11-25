@@ -16,6 +16,37 @@ namespace Textures
 	enum ID{Landscape, Player};
 }
 
+class TextureHolder
+{
+public:
+	void load(Textures::ID id, const std::string& filename);
+	sf::Texture& get(Textures::ID id);
+	const sf::Texture& get(Textures::ID id) const;
+
+private:
+	std::map<Textures::ID, std::unique_ptr<sf::Texture>> textureMap;
+};
+
+sf::Texture& TextureHolder::get(Textures::ID id)
+{
+	auto texture = textureMap.find(id);
+	return *texture->second;
+}
+
+void TextureHolder::load(Textures::ID id, const std::string& filename)
+{
+	std::unique_ptr<sf::Texture> texture(new sf::Texture());
+	texture->loadFromFile(filename);
+
+	textureMap.insert(std::make_pair(id, std::move(texture)));
+}
+
+const sf::Texture &TextureHolder::get(Textures::ID id) const
+{
+	auto texture = textureMap.find(id);
+	return *texture->second;
+}
+
 class Game
 {
 public:
@@ -25,6 +56,8 @@ public:
 
 	void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
 
+	void handlePlayerRotation(sf::Vector2<int> mousePosition);
+
 private:
 	void processEvents();
 
@@ -33,20 +66,21 @@ private:
 	void render();
 
 	sf::RenderWindow window;
+	TextureHolder textureHolder;
 	sf::Sprite player;
 	sf::Texture playerTexture;
 	float playerSpeed = 250.f;
-	const sf::Time TimePerFrame = sf::seconds(1.f / 60.f);
+	const sf::Time TimePerFrame = sf::seconds(1.f / 120.f);
 
 	bool movingUp = false, movingDown = false, movingLeft = false, movingRight = false;
 };
 
-Game::Game():window(sf::VideoMode(1920, 1080), "SFML"), playerTexture(), player()
+Game::Game() : window(sf::VideoMode(1920, 1080), "SFML"), playerTexture(), player()
 {
-	if(playerTexture.loadFromFile("tanknsoldier/enemy/enemy 1/idle/enemy1idle1.png") == false)
-	{
-	}
-	player = sf::Sprite(playerTexture);
+	textureHolder.load(Textures::Player, "tanknsoldier/enemy/enemy 1/idle/enemy1idle1.png");
+
+	player.setTexture(textureHolder.get(Textures::Player));
+	player.setOrigin(player.getLocalBounds().width / 2.f, player.getLocalBounds().height / 2.f);
 	player.setPosition(100.f, 100.f);
 }
 
@@ -81,6 +115,15 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 		movingRight = isPressed;
 }
 
+void Game::handlePlayerRotation(sf::Vector2i mousePosition)
+{
+	sf::Vector2f playerPosition = player.getPosition();
+	sf::Vector2f facing(mousePosition.x - playerPosition.x, mousePosition.y - playerPosition.y);
+
+	float angle = -atan2f(facing.x, facing.y) * 180.f / M_PI;
+		player.setRotation(angle);
+}
+
 void Game::processEvents()
 {
 	sf::Event event{};
@@ -103,6 +146,7 @@ void Game::processEvents()
 
 void Game::update(sf::Time deltaTime)
 {
+	handlePlayerRotation(sf::Mouse::getPosition());
 	sf::Vector2i direction(0, 0);
 	sf::Vector2f movement;
 	if(movingUp)
