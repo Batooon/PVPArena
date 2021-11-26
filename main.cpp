@@ -16,37 +16,40 @@ namespace Textures
 	enum ID{Landscape, Player};
 }
 
-class TextureHolder
+template<class Resource, class Identifier>
+class ResourceHolder
 {
 public:
-	void load(Textures::ID id, const std::string& filename);
-	sf::Texture& get(Textures::ID id);
-	const sf::Texture& get(Textures::ID id) const;
+	void load(Identifier id, const std::string& filename);
+	Resource& get(Identifier id);
+	const Resource& get(Identifier id) const;
 
 private:
-	std::map<Textures::ID, std::unique_ptr<sf::Texture>> textureMap;
+	std::map<Identifier, std::unique_ptr<Resource>> resourceMap;
 };
 
-sf::Texture& TextureHolder::get(Textures::ID id)
+template<class Resource, class Identifier>
+void ResourceHolder<Resource, Identifier>::load(Identifier id, const std::string& filename)
 {
-	auto texture = textureMap.find(id);
-	return *texture->second;
-}
-
-void TextureHolder::load(Textures::ID id, const std::string& filename)
-{
-	std::unique_ptr<sf::Texture> texture(new sf::Texture());
-	if(texture->loadFromFile(filename)==false)
+	std::unique_ptr<Resource> resource(new Resource());
+	if(resource->loadFromFile(filename) == false)
 	{
-		throw std::runtime_error("TextureHolder::load - Failed to load " + filename);
+		throw std::runtime_error("ResourceHolder::load - Failed to load " + filename);
 	}
-
-	auro inserted = textureMap.insert(std::make_pair(id, std::move(texture)));
+	auto inserted = resourceMap.insert(std::make_pair(id, std::move(resource)));
 }
 
-const sf::Texture &TextureHolder::get(Textures::ID id) const
+template<class Resource, class Identifier>
+Resource& ResourceHolder<Resource, Identifier>::get(Identifier id)
 {
-	auto texture = textureMap.find(id);
+	auto resource=resourceMap.find(id);
+	return *resource->second;
+}
+
+template<class Resource, class Identifier>
+const Resource& ResourceHolder<Resource, Identifier>::get(Identifier id) const
+{
+	auto texture = resourceMap.find(id);
 	return *texture->second;
 }
 
@@ -69,16 +72,15 @@ private:
 	void render();
 
 	sf::RenderWindow window;
-	TextureHolder textureHolder;
+	ResourceHolder<sf::Texture, Textures::ID> textureHolder;
 	sf::Sprite player;
-	sf::Texture playerTexture;
 	float playerSpeed = 250.f;
 	const sf::Time TimePerFrame = sf::seconds(1.f / 120.f);
 
 	bool movingUp = false, movingDown = false, movingLeft = false, movingRight = false;
 };
 
-Game::Game() : window(sf::VideoMode(1920, 1080), "SFML"), playerTexture(), player()
+Game::Game() : window(sf::VideoMode(1920, 1080), "SFML"), player()
 {
 	textureHolder.load(Textures::Player, "tanknsoldier/enemy/enemy 1/idle/enemy1idle1.png");
 
