@@ -72,18 +72,22 @@ public:
 	SceneNode();
 	void attachChild(Ptr child);
 	Ptr removeChild(const SceneNode& node);
+	void update(sf::Time deltaTime);
+	sf::Transform getWorldTransform() const;
+	sf::Vector2f getWorldPosition() const;
 
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const = 0;
+	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+	virtual void updateCurrent(sf::Time deltaTime);
+	void updateChildren(sf::Time deltaTime);
 
 	std::vector<Ptr> children;
 	SceneNode* parent;
 };
 
-SceneNode::SceneNode() : children()
+SceneNode::SceneNode() : children(), parent(nullptr)
 {
-	parent = nullptr;
 }
 
 void SceneNode::attachChild(Ptr child)
@@ -112,10 +116,45 @@ void SceneNode::draw(sf::RenderTarget &target, sf::RenderStates states) const
 	}
 }
 
+void SceneNode::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const
+{
+}
+
+void SceneNode::update(sf::Time deltaTime)
+{
+	updateCurrent(deltaTime);
+	updateChildren(deltaTime);
+}
+
+void SceneNode::updateCurrent(sf::Time deltaTime)
+{
+}
+
+void SceneNode::updateChildren(sf::Time deltaTime)
+{
+	for(const auto& child : children)
+		child->update(deltaTime);
+}
+
+sf::Transform SceneNode::getWorldTransform() const
+{
+	sf::Transform transform = sf::Transform::Identity;
+
+	for(const SceneNode *node = this; node != nullptr; node = node->parent)
+		transform = node->getTransform() * transform;
+	return transform;
+}
+
+sf::Vector2f SceneNode::getWorldPosition() const
+{
+	return getWorldTransform() * sf::Vector2f();
+}
+
 class Entity : public SceneNode
 {
 public:
 	explicit Entity(const sf::Texture& texture);
+	Entity(const sf::Texture& texture, const sf::IntRect& rect);
 
 protected:
 	sf::Sprite sprite;
@@ -124,11 +163,16 @@ private:
 	void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 
-Entity::Entity(const sf::Texture& texture) : sprite()
+Entity::Entity(const sf::Texture& texture) : sprite(texture)
 {
-	sprite.setTexture(texture);
-	sf::FloatRect bounds = sprite.getLocalBounds();
-	sprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+//	sprite.setTexture(texture);
+//	sf::FloatRect bounds = sprite.getLocalBounds();
+//	if(centerOrigin)
+//		sprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+}
+
+Entity::Entity(const sf::Texture& texture, const sf::IntRect& rect) : sprite(texture, rect)
+{
 }
 
 void Entity::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const
@@ -140,15 +184,21 @@ class ActiveEntity : public Entity
 {
 public:
 	explicit ActiveEntity(const sf::Texture& texture);
+	ActiveEntity(const sf::Texture& texture, const sf::IntRect& rect);
 	void setVelocity(sf::Vector2f velocity);
 	void setVelocity(float x, float y);
 	sf::Vector2f getVelocity() const;
 
 private:
+	virtual void updateCurrent(sf::Time deltaTime) override;
 	sf::Vector2f velocity;
 };
 
 ActiveEntity::ActiveEntity(const sf::Texture& texture) : Entity(texture)
+{
+}
+
+ActiveEntity::ActiveEntity(const sf::Texture& texture, const sf::IntRect& rect) : Entity(texture, rect)
 {
 }
 
@@ -169,6 +219,11 @@ sf::Vector2f ActiveEntity::getVelocity() const
 	return velocity;
 }
 
+void ActiveEntity::updateCurrent(sf::Time deltaTime)
+{
+	move(velocity * deltaTime.asSeconds());
+}
+
 class Player : public ActiveEntity
 {
 public:
@@ -181,6 +236,7 @@ public:
 
 	Player(Type type, const TextureHolder& textureHolder);
 private:
+	const float playerSpeed=250.f;
 	Type playerType;
 };
 
@@ -197,9 +253,12 @@ Textures::ID toTextureID(Player::Type type)
 	}
 }
 
-Player::Player(Type type, const TextureHolder& textureHolder) : ActiveEntity(textureHolder.get(toTextureID(type))),
+Player::Player(Type type, const TextureHolder& textureHolder) :
+ActiveEntity(textureHolder.get(toTextureID(type))),
 playerType(type)
 {
+	sf::FloatRect localBounds = sprite.getLocalBounds();
+	this->setOrigin(localBounds.width / 2.f, localBounds.height / 2.f);
 }
 
 class Game
@@ -220,7 +279,12 @@ private:
 
 	void render();
 
+	std::array<SceneNode*, LayerCount> layers;
+
+	SceneNode sceneBaseNode;
+
 	sf::RenderWindow window;
+	sf::FloatRect worldBounds;
 	TextureHolder textureHolder;
 	Player* player;
 	float playerSpeed = 250.f;
@@ -229,14 +293,37 @@ private:
 	bool movingUp = false, movingDown = false, movingLeft = false, movingRight = false;
 };
 
-Game::Game() : window(sf::VideoMode(1920, 1080), "SFML"), textureHolder()
+Game::Game() : window(sf::VideoMode(1920, 1080), "PvP Arena"),
+textureHolder(),
+player(nullptr),
+layers(),
+sceneBaseNode(),
+worldBounds(0.f,0.f,window.getDefaultView().getSize().x, window.getDefaultView().getSize().y)
 {
 	textureHolder.load(Textures::DoubleGun, "tanknsoldier/enemy/enemy 2/idle/enemy2idle1.png");
 	textureHolder.load(Textures::MagmaGun, "tanknsoldier/enemy/enemy 3/idle/enemy3idle1.png");
 	textureHolder.load(Textures::LaserGun, "tanknsoldier/enemy/enemy 1/idle/enemy1idle1.png");
+	textureHolder.load(Textures::Landscape, "tanknsoldier/bg/bg2.png");
 
-	player = new Player(Player::MagmaGun, textureHolder);
+	for(size_t i = 0; i < LayerCount; i++)
+	{
+		SceneNode::Ptr layer(new SceneNode());
+		layers[i] = layer.get();
+
+		sceneBaseNode.attachChild(std::move(layer));
+	}
+
+	sf::Texture& background=textureHolder.get(Textures::Landscape);
+	sf::IntRect backgroundRect(worldBounds);
+	background.setRepeated(true);
+
+	std::unique_ptr<Entity> backgroundSprite(new Entity(background, backgroundRect));
+	layers[Background]->attachChild(move(backgroundSprite));
+
+	std::unique_ptr<Player> newPlayer(new Player(Player::MagmaGun, textureHolder));
+	player = newPlayer.get();
 	player->setPosition(100.f, 100.f);
+	layers[Ground]->attachChild(std::move(newPlayer));
 }
 
 void Game::run()
@@ -319,7 +406,7 @@ void Game::update(sf::Time deltaTime)
 void Game::render()
 {
 	window.clear();
-	window.draw(*player);
+	window.draw(sceneBaseNode);
 	window.display();
 }
 
