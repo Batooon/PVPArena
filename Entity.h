@@ -5,6 +5,15 @@
 #ifndef PVPARENA_ENTITY_H
 #define PVPARENA_ENTITY_H
 
+#include "Command.h"
+#include "SceneNode.h"
+#include "ResourceHolder.h"
+#include <functional>
+#include <random>
+#include <cmath>
+#include <SFML/Graphics.hpp>
+#include <iostream>
+
 class Entity : public SceneNode
 {
 public:

@@ -5,6 +5,13 @@
 #ifndef PVPARENA_COMMAND_H
 #define PVPARENA_COMMAND_H
 
+#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <functional>
+#include "Category.h"
+
+class SceneNode;
+
 struct Command
 {
 public:

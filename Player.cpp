@@ -3,6 +3,19 @@
 //
 #include "Player.h"
 
+Textures::ID toTextureID(Player::Type type)
+{
+	switch(type)
+	{
+		case Player::DoubleGun:
+			return Textures::DoubleGun;
+		case Player::LaserGun:
+			return Textures::LaserGun;
+		case Player::MagmaGun:
+			return Textures::MagmaGun;
+	}
+}
+
 Player::Player(Type type, const ResourceHolder<sf::Texture, Textures::ID> & textureHolder) :
 ActiveEntity(textureHolder.get(toTextureID(type))),
 playerType(type)

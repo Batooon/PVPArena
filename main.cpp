@@ -19,19 +19,6 @@ sf::Vector2f Normalize(VectorT vector)
 	return (sf::Vector2f)vector;
 }
 
-Textures::ID toTextureID(Player::Type type)
-{
-	switch(type)
-	{
-		case Player::DoubleGun:
-			return Textures::DoubleGun;
-		case Player::LaserGun:
-			return Textures::LaserGun;
-		case Player::MagmaGun:
-			return Textures::MagmaGun;
-	}
-}
-
 const sf::Time Game::TimePerFrame = sf::seconds(1.f/120.f);
 
 int main()

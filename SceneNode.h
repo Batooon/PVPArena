@@ -11,6 +11,8 @@
 #include <cmath>
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "Command.h"
+#include "Category.h"
 
 class SceneNode : public sf::Transformable, public sf::Drawable, private sf::NonCopyable
 {
@@ -23,11 +25,11 @@ public:
 	sf::Transform getWorldTransform() const;
 	sf::Vector2f getWorldPosition() const;
 	virtual unsigned int getCategory() const;
-//	void onCommand(const Command& command, sf::Time deltaTime);
+	void onCommand(const Command& command, sf::Time deltaTime);
 
 private:
-	void draw(RenderTarget& target, sf::RenderStates states) const override;
-	virtual void drawCurrent(RenderTarget& target, sf::RenderStates states) const;
+	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 	virtual void updateCurrent(sf::Time deltaTime);
 	void updateChildren(sf::Time deltaTime);
 
