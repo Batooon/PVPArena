@@ -6,6 +6,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/PVPArena.dir/Game.cpp.obj"
   "CMakeFiles/PVPArena.dir/Player.cpp.obj"
   "CMakeFiles/PVPArena.dir/SceneNode.cpp.obj"
+  "CMakeFiles/PVPArena.dir/Soldier.cpp.obj"
   "CMakeFiles/PVPArena.dir/World.cpp.obj"
   "CMakeFiles/PVPArena.dir/main.cpp.obj"
   "PVPArena.exe"

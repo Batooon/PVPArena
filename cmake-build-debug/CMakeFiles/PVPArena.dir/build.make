@@ -149,19 +149,19 @@ CMakeFiles/PVPArena.dir/World.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PVPArena.dir/World.cpp.s"
 	C:\PROGRA~1\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "F:\Projects 2021\PVPArena\World.cpp" -o CMakeFiles\PVPArena.dir\World.cpp.s
 
-CMakeFiles/PVPArena.dir/Player.cpp.obj: CMakeFiles/PVPArena.dir/flags.make
-CMakeFiles/PVPArena.dir/Player.cpp.obj: CMakeFiles/PVPArena.dir/includes_CXX.rsp
-CMakeFiles/PVPArena.dir/Player.cpp.obj: ../Player.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="F:\Projects 2021\PVPArena\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/PVPArena.dir/Player.cpp.obj"
-	C:\PROGRA~1\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\PVPArena.dir\Player.cpp.obj -c "F:\Projects 2021\PVPArena\Player.cpp"
+CMakeFiles/PVPArena.dir/Soldier.cpp.obj: CMakeFiles/PVPArena.dir/flags.make
+CMakeFiles/PVPArena.dir/Soldier.cpp.obj: CMakeFiles/PVPArena.dir/includes_CXX.rsp
+CMakeFiles/PVPArena.dir/Soldier.cpp.obj: ../Soldier.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="F:\Projects 2021\PVPArena\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/PVPArena.dir/Soldier.cpp.obj"
+	C:\PROGRA~1\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\PVPArena.dir\Soldier.cpp.obj -c "F:\Projects 2021\PVPArena\Soldier.cpp"
 
-CMakeFiles/PVPArena.dir/Player.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PVPArena.dir/Player.cpp.i"
-	C:\PROGRA~1\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "F:\Projects 2021\PVPArena\Player.cpp" > CMakeFiles\PVPArena.dir\Player.cpp.i
+CMakeFiles/PVPArena.dir/Soldier.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PVPArena.dir/Soldier.cpp.i"
+	C:\PROGRA~1\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "F:\Projects 2021\PVPArena\Soldier.cpp" > CMakeFiles\PVPArena.dir\Soldier.cpp.i
 
-CMakeFiles/PVPArena.dir/Player.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PVPArena.dir/Player.cpp.s"
-	C:\PROGRA~1\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "F:\Projects 2021\PVPArena\Player.cpp" -o CMakeFiles\PVPArena.dir\Player.cpp.s
+CMakeFiles/PVPArena.dir/Soldier.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PVPArena.dir/Soldier.cpp.s"
+	C:\PROGRA~1\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "F:\Projects 2021\PVPArena\Soldier.cpp" -o CMakeFiles\PVPArena.dir\Soldier.cpp.s
 
 CMakeFiles/PVPArena.dir/Game.cpp.obj: CMakeFiles/PVPArena.dir/flags.make
 CMakeFiles/PVPArena.dir/Game.cpp.obj: CMakeFiles/PVPArena.dir/includes_CXX.rsp
@@ -191,6 +191,20 @@ CMakeFiles/PVPArena.dir/CommandQueue.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PVPArena.dir/CommandQueue.cpp.s"
 	C:\PROGRA~1\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "F:\Projects 2021\PVPArena\CommandQueue.cpp" -o CMakeFiles\PVPArena.dir\CommandQueue.cpp.s
 
+CMakeFiles/PVPArena.dir/Player.cpp.obj: CMakeFiles/PVPArena.dir/flags.make
+CMakeFiles/PVPArena.dir/Player.cpp.obj: CMakeFiles/PVPArena.dir/includes_CXX.rsp
+CMakeFiles/PVPArena.dir/Player.cpp.obj: ../Player.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir="F:\Projects 2021\PVPArena\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/PVPArena.dir/Player.cpp.obj"
+	C:\PROGRA~1\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\PVPArena.dir\Player.cpp.obj -c "F:\Projects 2021\PVPArena\Player.cpp"
+
+CMakeFiles/PVPArena.dir/Player.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PVPArena.dir/Player.cpp.i"
+	C:\PROGRA~1\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "F:\Projects 2021\PVPArena\Player.cpp" > CMakeFiles\PVPArena.dir\Player.cpp.i
+
+CMakeFiles/PVPArena.dir/Player.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PVPArena.dir/Player.cpp.s"
+	C:\PROGRA~1\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "F:\Projects 2021\PVPArena\Player.cpp" -o CMakeFiles\PVPArena.dir\Player.cpp.s
+
 # Object files for target PVPArena
 PVPArena_OBJECTS = \
 "CMakeFiles/PVPArena.dir/main.cpp.obj" \
@@ -199,9 +213,10 @@ PVPArena_OBJECTS = \
 "CMakeFiles/PVPArena.dir/Entity.cpp.obj" \
 "CMakeFiles/PVPArena.dir/ActiveEntity.cpp.obj" \
 "CMakeFiles/PVPArena.dir/World.cpp.obj" \
-"CMakeFiles/PVPArena.dir/Player.cpp.obj" \
+"CMakeFiles/PVPArena.dir/Soldier.cpp.obj" \
 "CMakeFiles/PVPArena.dir/Game.cpp.obj" \
-"CMakeFiles/PVPArena.dir/CommandQueue.cpp.obj"
+"CMakeFiles/PVPArena.dir/CommandQueue.cpp.obj" \
+"CMakeFiles/PVPArena.dir/Player.cpp.obj"
 
 # External object files for target PVPArena
 PVPArena_EXTERNAL_OBJECTS =
@@ -212,9 +227,10 @@ PVPArena.exe: CMakeFiles/PVPArena.dir/Command.cpp.obj
 PVPArena.exe: CMakeFiles/PVPArena.dir/Entity.cpp.obj
 PVPArena.exe: CMakeFiles/PVPArena.dir/ActiveEntity.cpp.obj
 PVPArena.exe: CMakeFiles/PVPArena.dir/World.cpp.obj
-PVPArena.exe: CMakeFiles/PVPArena.dir/Player.cpp.obj
+PVPArena.exe: CMakeFiles/PVPArena.dir/Soldier.cpp.obj
 PVPArena.exe: CMakeFiles/PVPArena.dir/Game.cpp.obj
 PVPArena.exe: CMakeFiles/PVPArena.dir/CommandQueue.cpp.obj
+PVPArena.exe: CMakeFiles/PVPArena.dir/Player.cpp.obj
 PVPArena.exe: CMakeFiles/PVPArena.dir/build.make
 PVPArena.exe: C:/SFML-2.5.1/lib/libsfml-system-d.a
 PVPArena.exe: C:/SFML-2.5.1/lib/libsfml-window-d.a
@@ -222,7 +238,7 @@ PVPArena.exe: C:/SFML-2.5.1/lib/libsfml-graphics-d.a
 PVPArena.exe: CMakeFiles/PVPArena.dir/linklibs.rsp
 PVPArena.exe: CMakeFiles/PVPArena.dir/objects1.rsp
 PVPArena.exe: CMakeFiles/PVPArena.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="F:\Projects 2021\PVPArena\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable PVPArena.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir="F:\Projects 2021\PVPArena\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable PVPArena.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\PVPArena.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

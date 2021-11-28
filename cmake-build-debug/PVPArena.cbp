@@ -136,6 +136,12 @@
 		<Unit filename="F:/Projects 2021/PVPArena/SceneNode.h">
 			<Option target="PVPArena"/>
 		</Unit>
+		<Unit filename="F:/Projects 2021/PVPArena/Soldier.cpp">
+			<Option target="PVPArena"/>
+		</Unit>
+		<Unit filename="F:/Projects 2021/PVPArena/Soldier.h">
+			<Option target="PVPArena"/>
+		</Unit>
 		<Unit filename="F:/Projects 2021/PVPArena/World.cpp">
 			<Option target="PVPArena"/>
 		</Unit>

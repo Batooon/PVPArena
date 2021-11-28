@@ -296,6 +296,30 @@ SceneNode.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/SceneNode.cpp.s
 .PHONY : SceneNode.cpp.s
 
+Soldier.obj: Soldier.cpp.obj
+.PHONY : Soldier.obj
+
+# target to build an object file
+Soldier.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/Soldier.cpp.obj
+.PHONY : Soldier.cpp.obj
+
+Soldier.i: Soldier.cpp.i
+.PHONY : Soldier.i
+
+# target to preprocess a source file
+Soldier.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/Soldier.cpp.i
+.PHONY : Soldier.cpp.i
+
+Soldier.s: Soldier.cpp.s
+.PHONY : Soldier.s
+
+# target to generate assembly for a file
+Soldier.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/Soldier.cpp.s
+.PHONY : Soldier.cpp.s
+
 World.obj: World.cpp.obj
 .PHONY : World.obj
 
@@ -374,6 +398,9 @@ help:
 	@echo ... SceneNode.obj
 	@echo ... SceneNode.i
 	@echo ... SceneNode.s
+	@echo ... Soldier.obj
+	@echo ... Soldier.i
+	@echo ... Soldier.s
 	@echo ... World.obj
 	@echo ... World.i
 	@echo ... World.s

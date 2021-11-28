@@ -15,6 +15,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "F:/Projects 2021/PVPArena/Game.cpp" "F:/Projects 2021/PVPArena/cmake-build-debug/CMakeFiles/PVPArena.dir/Game.cpp.obj"
   "F:/Projects 2021/PVPArena/Player.cpp" "F:/Projects 2021/PVPArena/cmake-build-debug/CMakeFiles/PVPArena.dir/Player.cpp.obj"
   "F:/Projects 2021/PVPArena/SceneNode.cpp" "F:/Projects 2021/PVPArena/cmake-build-debug/CMakeFiles/PVPArena.dir/SceneNode.cpp.obj"
+  "F:/Projects 2021/PVPArena/Soldier.cpp" "F:/Projects 2021/PVPArena/cmake-build-debug/CMakeFiles/PVPArena.dir/Soldier.cpp.obj"
   "F:/Projects 2021/PVPArena/World.cpp" "F:/Projects 2021/PVPArena/cmake-build-debug/CMakeFiles/PVPArena.dir/World.cpp.obj"
   "F:/Projects 2021/PVPArena/main.cpp" "F:/Projects 2021/PVPArena/cmake-build-debug/CMakeFiles/PVPArena.dir/main.cpp.obj"
   )
