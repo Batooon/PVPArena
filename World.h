@@ -17,6 +17,7 @@
 #include "ActiveEntity.h"
 #include "Player.h"
 #include "Resources.h"
+#include "CommandQueue.h"
 
 class World:sf::NonCopyable
 {
@@ -24,6 +25,7 @@ public:
 	explicit World(sf::RenderWindow& window);
 	void update(sf::Time deltaTime);
 	void draw();
+	CommandQueue& getCommandQueue();
 
 private:
 	enum Layers
@@ -48,6 +50,7 @@ private:
 	sf::Vector2f spawnPoint;
 	float cameraFollowSpeed;
 	Player* player;
+	CommandQueue commandQueue;
 };
 
 #endif //PVPARENA_WORLD_H

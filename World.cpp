@@ -9,7 +9,8 @@ World::World(sf::RenderWindow &window):
 		worldView(window.getDefaultView()),
 		worldBounds(0.f, 0.f, worldView.getSize().x*3, worldView.getSize().y*3),
 		spawnPoint(worldBounds.width/2.f, worldBounds.height/2.f),
-		player(nullptr)
+		player(nullptr),
+		commandQueue()
 {
 	loadTextures();
 	buildScene();
@@ -95,5 +96,13 @@ void World::update(sf::Time deltaTime)
 //	player->move(velocity * deltaTime.asSeconds());
 //	worldView.move(velocity * deltaTime.asSeconds());
 
-//	sceneGraph.update(deltaTime);
+	while(commandQueue.isEmpty()==false)
+		sceneGraph.onCommand(commandQueue.pop(), deltaTime);
+
+	sceneGraph.update(deltaTime);
+}
+
+CommandQueue &World::getCommandQueue()
+{
+	return commandQueue;
 }
