@@ -4,7 +4,9 @@
 #include "Game.h"
 
 Game::Game() :
-		window(sf::VideoMode(1920, 1080), "PvP Arena", sf::Style::Close), world(window)
+		window(sf::VideoMode(1920, 1080), "PvP Arena", sf::Style::Close),
+		world(window),
+		player()
 {
 }
 
@@ -28,23 +30,13 @@ void Game::run()
 	}
 }
 
-void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
-{
-//	if(key == sf::Keyboard::W)
-//		movingUp = isPressed;
-//	else if(key == sf::Keyboard::S)
-//		movingDown = isPressed;
-//	else if(key == sf::Keyboard::A)
-//		movingLeft = isPressed;
-//	else if(key == sf::Keyboard::D)
-//		movingRight = isPressed;
-}
-
 void Game::processEvents()
 {
+	CommandQueue& commands=world.getCommandQueue();
 	sf::Event event{};
 	while(window.pollEvent(event))
 	{
+		player.handleEvent(event, commands);
 		switch(event.type)
 		{
 			case sf::Event::LostFocus:
@@ -53,16 +45,17 @@ void Game::processEvents()
 			case sf::Event::GainedFocus:
 				isPause = true;
 				break;
-			case sf::Event::KeyPressed:
-				handlePlayerInput(event.key.code, true);
-				break;
-			case sf::Event::KeyReleased:
-				handlePlayerInput(event.key.code, false);
-				break;
+//			case sf::Event::KeyPressed:
+//				handlePlayerInput(event.key.code, true);
+//				break;
+//			case sf::Event::KeyReleased:
+//				handlePlayerInput(event.key.code, false);
+//				break;
 			case sf::Event::Closed:
 				window.close();
 				break;
 		}
+		player.handleInput(commands);
 	}
 }
 

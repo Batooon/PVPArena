@@ -17,6 +17,7 @@
 #include <cmath>
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "Player.h"
 
 class Game
 {
@@ -26,7 +27,6 @@ public:
 	void run();
 
 private:
-	void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
 	void processEvents();
 	void update(sf::Time deltaTime);
 	void render();
@@ -35,6 +35,7 @@ private:
 	World world;
 	static const sf::Time TimePerFrame;
 	bool isPause;
+	Player player;
 };
 
 #endif //PVPARENA_GAME_H
