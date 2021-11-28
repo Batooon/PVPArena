@@ -71,3 +71,11 @@ unsigned int SceneNode::getCategory() const
 {
 	return Category::Scene;
 }
+
+void SceneNode::onCommand(const Command& command, sf::Time deltaTime)
+{
+	if(command.category & getCategory())
+		command.action(*this, deltaTime);
+	for(auto& child : children)
+		child->onCommand(command, deltaTime);
+}
