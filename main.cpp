@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <cmath>
+#include <random>
 
 template<class VectorT>
 sf::Vector2f Normalize(VectorT vector)
@@ -14,17 +15,12 @@ sf::Vector2f Normalize(VectorT vector)
 namespace Textures
 {
 	enum ID{Landscape,
+			Tree,
+			Leafs,
 			DoubleGun,
 			LaserGun,
 			MagmaGun};
 }
-
-enum Layers
-{
-	Background,
-	Ground,
-	LayerCount
-};
 
 template<class Resource, class Identifier>
 class ResourceHolder
@@ -52,7 +48,7 @@ void ResourceHolder<Resource, Identifier>::load(Identifier id, const std::string
 template<class Resource, class Identifier>
 Resource& ResourceHolder<Resource, Identifier>::get(Identifier id)
 {
-	auto resource=resourceMap.find(id);
+	auto resource = resourceMap.find(id);
 	return *resource->second;
 }
 
@@ -165,10 +161,6 @@ private:
 
 Entity::Entity(const sf::Texture& texture) : sprite(texture)
 {
-//	sprite.setTexture(texture);
-//	sf::FloatRect bounds = sprite.getLocalBounds();
-//	if(centerOrigin)
-//		sprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 }
 
 Entity::Entity(const sf::Texture& texture, const sf::IntRect& rect) : sprite(texture, rect)
@@ -235,8 +227,13 @@ public:
 	};
 
 	Player(Type type, const TextureHolder& textureHolder);
+
+	void LookAt(sf::Vector2f worldPosition);
+	float getSpeed() const;
+
+	bool movingUp = false, movingDown = false, movingLeft = false, movingRight = false;
 private:
-	const float playerSpeed=250.f;
+	const float speed = 250.f;
 	Type playerType;
 };
 
@@ -261,6 +258,52 @@ playerType(type)
 	this->setOrigin(localBounds.width / 2.f, localBounds.height / 2.f);
 }
 
+void Player::LookAt(sf::Vector2f worldPosition)
+{
+	sf::Vector2f playerPosition = this->getPosition();
+	sf::Vector2f facing(worldPosition.x - playerPosition.x, worldPosition.y - playerPosition.y);
+
+	float angle = -atan2f(facing.x, facing.y) * 180.f / M_PI;
+	this->setRotation(angle);
+}
+
+float Player::getSpeed() const
+{
+	return speed;
+}
+
+class World:sf::NonCopyable
+{
+public:
+	explicit World(sf::RenderWindow& window);
+	void update(sf::Time deltaTime);
+	void draw();
+
+private:
+	enum Layers
+	{
+		Background,
+		Vegetation,
+		Trees,
+		Ground,
+		LayerCount
+	};
+
+	void loadTextures();
+	void buildScene();
+
+	sf::RenderWindow& window;
+	sf::View worldView;
+	TextureHolder textures;
+	SceneNode sceneGraph;
+	std::array<SceneNode*, LayerCount> sceneLayers;
+
+	sf::FloatRect worldBounds;
+	sf::Vector2f spawnPoint;
+	float camerafollowSpeed;
+	Player* player;
+};
+
 class Game
 {
 public:
@@ -268,62 +311,24 @@ public:
 
 	void run();
 
-	void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
-
-	void handlePlayerRotation(sf::Vector2<int> mousePosition);
-
 private:
+	void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
 	void processEvents();
-
 	void update(sf::Time deltaTime);
-
 	void render();
 
-	std::array<SceneNode*, LayerCount> layers;
-
-	SceneNode sceneBaseNode;
-
 	sf::RenderWindow window;
-	sf::FloatRect worldBounds;
-	TextureHolder textureHolder;
-	Player* player;
-	float playerSpeed = 250.f;
-	const sf::Time TimePerFrame = sf::seconds(1.f / 120.f);
+	World world;
+	static const sf::Time TimePerFrame;
 
 	bool movingUp = false, movingDown = false, movingLeft = false, movingRight = false;
 };
 
-Game::Game() : window(sf::VideoMode(1920, 1080), "PvP Arena"),
-textureHolder(),
-player(nullptr),
-layers(),
-sceneBaseNode(),
-worldBounds(0.f,0.f,window.getDefaultView().getSize().x, window.getDefaultView().getSize().y)
+const sf::Time Game::TimePerFrame = sf::seconds(1.f/120.f);
+
+Game::Game() :
+window(sf::VideoMode(1920, 1080), "PvP Arena", sf::Style::Close), world(window)
 {
-	textureHolder.load(Textures::DoubleGun, "tanknsoldier/enemy/enemy 2/idle/enemy2idle1.png");
-	textureHolder.load(Textures::MagmaGun, "tanknsoldier/enemy/enemy 3/idle/enemy3idle1.png");
-	textureHolder.load(Textures::LaserGun, "tanknsoldier/enemy/enemy 1/idle/enemy1idle1.png");
-	textureHolder.load(Textures::Landscape, "tanknsoldier/bg/bg2.png");
-
-	for(size_t i = 0; i < LayerCount; i++)
-	{
-		SceneNode::Ptr layer(new SceneNode());
-		layers[i] = layer.get();
-
-		sceneBaseNode.attachChild(std::move(layer));
-	}
-
-	sf::Texture& background=textureHolder.get(Textures::Landscape);
-	sf::IntRect backgroundRect(worldBounds);
-	background.setRepeated(true);
-
-	std::unique_ptr<Entity> backgroundSprite(new Entity(background, backgroundRect));
-	layers[Background]->attachChild(move(backgroundSprite));
-
-	std::unique_ptr<Player> newPlayer(new Player(Player::MagmaGun, textureHolder));
-	player = newPlayer.get();
-	player->setPosition(100.f, 100.f);
-	layers[Ground]->attachChild(std::move(newPlayer));
 }
 
 void Game::run()
@@ -357,15 +362,6 @@ void Game::handlePlayerInput(sf::Keyboard::Key key, bool isPressed)
 		movingRight = isPressed;
 }
 
-void Game::handlePlayerRotation(sf::Vector2i mousePosition)
-{
-	sf::Vector2f playerPosition = player->getPosition();
-	sf::Vector2f facing(mousePosition.x - playerPosition.x, mousePosition.y - playerPosition.y);
-
-	float angle = -atan2f(facing.x, facing.y) * 180.f / M_PI;
-		player->setRotation(angle);
-}
-
 void Game::processEvents()
 {
 	sf::Event event{};
@@ -388,32 +384,121 @@ void Game::processEvents()
 
 void Game::update(sf::Time deltaTime)
 {
-	handlePlayerRotation(sf::Mouse::getPosition());
-	sf::Vector2i direction(0, 0);
-	if(movingUp)
-		direction.y = -1;
-	if(movingDown)
-		direction.y = 1;
-	if(movingLeft)
-		direction.x = -1;
-	if(movingRight)
-		direction.x = 1;
-	sf::Vector2f velocity = Normalize(direction) * playerSpeed;
-	player->setVelocity(velocity);
-	player->move(velocity * deltaTime.asSeconds());
+	world.update(deltaTime);
 }
 
 void Game::render()
 {
 	window.clear();
-	window.draw(sceneBaseNode);
+	world.draw();
 	window.display();
+}
+
+World::World(sf::RenderWindow &window):
+window(window),
+worldView(window.getDefaultView()),
+worldBounds(0.f, 0.f, worldView.getSize().x*3, worldView.getSize().y*3),
+spawnPoint(worldBounds.width/2.f, worldBounds.height/2.f),
+player(nullptr)
+{
+	loadTextures();
+	buildScene();
+
+	worldView.setCenter(spawnPoint);
+}
+
+void World::loadTextures()
+{
+	textures.load(Textures::DoubleGun, "tanknsoldier/enemy/enemy 2/idle/enemy2idle1.png");
+	textures.load(Textures::MagmaGun, "tanknsoldier/enemy/enemy 3/idle/enemy3idle1.png");
+	textures.load(Textures::LaserGun, "tanknsoldier/enemy/enemy 1/idle/enemy1idle1.png");
+	textures.load(Textures::Landscape, "KTT Series - Plant Biome/Grass.png");
+	textures.load(Textures::Leafs, "KTT Series - Plant Biome/GrassWithLeafs.png");
+	textures.load(Textures::Tree, "KTT Series - Plant Biome/Tree.png");
+}
+
+void World::buildScene()
+{
+	for(size_t i = 0; i < LayerCount; i++)
+	{
+		SceneNode::Ptr layer(new SceneNode());
+		sceneLayers[i] = layer.get();
+
+		sceneGraph.attachChild(std::move(layer));
+	}
+
+	sf::Texture &background = textures.get(Textures::Landscape);
+	sf::IntRect backgroundRect(worldBounds);
+	background.setRepeated(true);
+	std::unique_ptr<Entity> backgroundSprite(new Entity(background, backgroundRect));
+	backgroundSprite->setPosition(worldBounds.left, worldBounds.top);
+	sceneLayers[Background]->attachChild(move(backgroundSprite));
+
+	sf::Texture &tree = textures.get(Textures::Tree);
+	for(int i = 0; i < 150; i++)
+	{
+		std::unique_ptr<Entity> treeSprite(new Entity(tree));
+		sf::Vector2f position((float) rand() / RAND_MAX * (float) worldBounds.width,
+		                      (float) rand() / RAND_MAX * (float) worldBounds.height);
+		treeSprite->setPosition(position);
+		treeSprite->setScale(2.5f, 2.5f);
+		sceneLayers[Trees]->attachChild(std::move(treeSprite));
+	}
+
+	sf::Texture &plant = textures.get(Textures::Leafs);
+	for(int i = 0; i < 250; i++)
+	{
+		std::unique_ptr<Entity> plantSprite(new Entity(plant));
+		sf::Vector2f position((float) rand() / RAND_MAX * (float) worldBounds.width,
+		                      (float) rand() / RAND_MAX * (float) worldBounds.height);
+		plantSprite->setPosition(position);
+		plantSprite->setScale(1.5f, 1.5f);
+		sceneLayers[Vegetation]->attachChild(std::move(plantSprite));
+	}
+
+	std::unique_ptr<Player> newPlayer(new Player(Player::MagmaGun, textures));
+	player = newPlayer.get();
+	player->setPosition(spawnPoint);
+	sceneLayers[Ground]->attachChild(std::move(newPlayer));
+}
+
+void World::draw()
+{
+	window.setView(worldView);
+	window.draw(sceneGraph);
+}
+
+void World::update(sf::Time deltaTime)
+{
+	player->LookAt(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
+//	sf::Vector2i direction(0, 0);
+//	if(player->movingUp)
+//		direction.y = -1;
+//	if(player->movingDown)
+//		direction.y = 1;
+//	if(player->movingLeft)
+//		direction.x = -1;
+//	if(player->movingRight)
+//		direction.x = 1;
+//	sf::Vector2f velocity = Normalize(direction) * player->getSpeed();
+//	player->setVelocity(velocity);
+//	player->move(velocity * deltaTime.asSeconds());
+//	worldView.move(velocity * deltaTime.asSeconds());
+
+//	sceneGraph.update(deltaTime);
 }
 
 int main()
 {
-	Game game;
-	game.run();
+	try
+	{
+		Game game;
+		game.run();
+	}
+	catch(std::exception& e)
+	{
+		std::cout<<"Exception: "<<e.what()<<std::endl;
+	}
 
 	return 0;
 }
