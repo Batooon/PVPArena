@@ -15,7 +15,7 @@
 #include "Command.h"
 #include "Entity.h"
 #include "ActiveEntity.h"
-#include "Player.h"
+#include "Soldier.h"
 #include "Resources.h"
 #include "CommandQueue.h"
 
@@ -49,7 +49,7 @@ private:
 	sf::FloatRect worldBounds;
 	sf::Vector2f spawnPoint;
 	float cameraFollowSpeed;
-	Player* player;
+	Soldier* player;
 	CommandQueue commandQueue;
 };
 

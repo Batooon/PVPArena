@@ -6,7 +6,7 @@
 #include "SceneNode.h"
 #include "Entity.h"
 #include "ActiveEntity.h"
-#include "Player.h"
+#include "Soldier.h"
 #include "World.h"
 #include "Game.h"
 

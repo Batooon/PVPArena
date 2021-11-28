@@ -67,7 +67,7 @@ void World::buildScene()
 		sceneLayers[Vegetation]->attachChild(std::move(plantSprite));
 	}
 
-	std::unique_ptr<Player> newPlayer(new Player(Player::MagmaGun, textures));
+	std::unique_ptr<Soldier> newPlayer(new Soldier(Soldier::MagmaGun, textures));
 	player = newPlayer.get();
 	player->setPosition(spawnPoint);
 	sceneLayers[Ground]->attachChild(std::move(newPlayer));

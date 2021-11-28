@@ -2,8 +2,8 @@
 // Created by Anton on 28/11/2021.
 //
 
-#ifndef PVPARENA_PLAYER_H
-#define PVPARENA_PLAYER_H
+#ifndef PVPARENA_SOLDIER_H
+#define PVPARENA_SOLDIER_H
 
 #include "ActiveEntity.h"
 #include "Entity.h"
@@ -16,7 +16,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-class Player : public ActiveEntity
+class Soldier : public ActiveEntity
 {
 public:
 	enum Type
@@ -26,7 +26,7 @@ public:
 		MagmaGun
 	};
 
-	Player(Type type, const TextureHolder& textureHolder);
+	Soldier(Type type, const TextureHolder& textureHolder);
 
 	void LookAt(sf::Vector2f worldPosition);
 	float getSpeed() const;
@@ -36,4 +36,4 @@ private:
 	Type playerType;
 };
 
-#endif //PVPARENA_PLAYER_H
+#endif //PVPARENA_SOLDIER_H

@@ -6,7 +6,7 @@
 #define PVPARENA_GAME_H
 
 #include "World.h"
-#include "Player.h"
+#include "Soldier.h"
 #include "ActiveEntity.h"
 #include "Entity.h"
 #include "Command.h"

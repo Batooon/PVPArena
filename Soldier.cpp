@@ -1,22 +1,22 @@
 //
 // Created by Anton on 28/11/2021.
 //
-#include "Player.h"
+#include "Soldier.h"
 
-Textures::ID toTextureID(Player::Type type)
+Textures::ID toTextureID(Soldier::Type type)
 {
 	switch(type)
 	{
-		case Player::DoubleGun:
+		case Soldier::DoubleGun:
 			return Textures::DoubleGun;
-		case Player::LaserGun:
+		case Soldier::LaserGun:
 			return Textures::LaserGun;
-		case Player::MagmaGun:
+		case Soldier::MagmaGun:
 			return Textures::MagmaGun;
 	}
 }
 
-Player::Player(Type type, const ResourceHolder<sf::Texture, Textures::ID> & textureHolder) :
+Soldier::Soldier(Type type, const ResourceHolder<sf::Texture, Textures::ID> & textureHolder) :
 ActiveEntity(textureHolder.get(toTextureID(type))),
 playerType(type)
 {
@@ -24,7 +24,7 @@ playerType(type)
 	this->setOrigin(localBounds.width / 2.f, localBounds.height / 2.f);
 }
 
-void Player::LookAt(sf::Vector2f worldPosition)
+void Soldier::LookAt(sf::Vector2f worldPosition)
 {
 	sf::Vector2f playerPosition = this->getPosition();
 	sf::Vector2f facing(worldPosition.x - playerPosition.x, worldPosition.y - playerPosition.y);
@@ -33,12 +33,12 @@ void Player::LookAt(sf::Vector2f worldPosition)
 	this->setRotation(angle);
 }
 
-float Player::getSpeed() const
+float Soldier::getSpeed() const
 {
 	return speed;
 }
 
-unsigned int Player::getCategory() const
+unsigned int Soldier::getCategory() const
 {
 	return Category::Player;
 }
