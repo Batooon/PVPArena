@@ -6,7 +6,9 @@
 #define PVPARENA_PLAYER_H
 
 #include "SFML/System.hpp"
+#include "SFML/Graphics.hpp"
 #include "CommandQueue.h"
+#include "Soldier.h"
 
 class Player
 {
