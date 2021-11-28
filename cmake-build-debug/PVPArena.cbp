@@ -97,6 +97,12 @@
 		<Unit filename="F:/Projects 2021/PVPArena/Command.h">
 			<Option target="PVPArena"/>
 		</Unit>
+		<Unit filename="F:/Projects 2021/PVPArena/CommandQueue.cpp">
+			<Option target="PVPArena"/>
+		</Unit>
+		<Unit filename="F:/Projects 2021/PVPArena/CommandQueue.h">
+			<Option target="PVPArena"/>
+		</Unit>
 		<Unit filename="F:/Projects 2021/PVPArena/Entity.cpp">
 			<Option target="PVPArena"/>
 		</Unit>

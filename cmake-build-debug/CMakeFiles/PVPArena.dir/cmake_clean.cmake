@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/PVPArena.dir/ActiveEntity.cpp.obj"
   "CMakeFiles/PVPArena.dir/Command.cpp.obj"
+  "CMakeFiles/PVPArena.dir/CommandQueue.cpp.obj"
   "CMakeFiles/PVPArena.dir/Entity.cpp.obj"
   "CMakeFiles/PVPArena.dir/Game.cpp.obj"
   "CMakeFiles/PVPArena.dir/Player.cpp.obj"

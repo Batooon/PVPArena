@@ -176,6 +176,30 @@ Command.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/Command.cpp.s
 .PHONY : Command.cpp.s
 
+CommandQueue.obj: CommandQueue.cpp.obj
+.PHONY : CommandQueue.obj
+
+# target to build an object file
+CommandQueue.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/CommandQueue.cpp.obj
+.PHONY : CommandQueue.cpp.obj
+
+CommandQueue.i: CommandQueue.cpp.i
+.PHONY : CommandQueue.i
+
+# target to preprocess a source file
+CommandQueue.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/CommandQueue.cpp.i
+.PHONY : CommandQueue.cpp.i
+
+CommandQueue.s: CommandQueue.cpp.s
+.PHONY : CommandQueue.s
+
+# target to generate assembly for a file
+CommandQueue.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/CommandQueue.cpp.s
+.PHONY : CommandQueue.cpp.s
+
 Entity.obj: Entity.cpp.obj
 .PHONY : Entity.obj
 
@@ -335,6 +359,9 @@ help:
 	@echo ... Command.obj
 	@echo ... Command.i
 	@echo ... Command.s
+	@echo ... CommandQueue.obj
+	@echo ... CommandQueue.i
+	@echo ... CommandQueue.s
 	@echo ... Entity.obj
 	@echo ... Entity.i
 	@echo ... Entity.s
