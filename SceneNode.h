@@ -1,0 +1,38 @@
+//
+// Created by Anton on 28/11/2021.
+//
+
+#ifndef PVPARENA_SCENENODE_H
+#define PVPARENA_SCENENODE_H
+
+#include "ResourceHolder.h"
+#include <functional>
+#include <random>
+#include <cmath>
+#include <SFML/Graphics.hpp>
+#include <iostream>
+
+class SceneNode : public sf::Transformable, public sf::Drawable, private sf::NonCopyable
+{
+public:
+	typedef std::unique_ptr<SceneNode> Ptr;
+	SceneNode();
+	void attachChild(Ptr child);
+	Ptr removeChild(const SceneNode& node);
+	void update(sf::Time deltaTime);
+	sf::Transform getWorldTransform() const;
+	sf::Vector2f getWorldPosition() const;
+	virtual unsigned int getCategory() const;
+//	void onCommand(const Command& command, sf::Time deltaTime);
+
+private:
+	void draw(RenderTarget& target, sf::RenderStates states) const override;
+	virtual void drawCurrent(RenderTarget& target, sf::RenderStates states) const;
+	virtual void updateCurrent(sf::Time deltaTime);
+	void updateChildren(sf::Time deltaTime);
+
+	std::vector<Ptr> children;
+	SceneNode* parent;
+};
+
+#endif //PVPARENA_SCENENODE_H

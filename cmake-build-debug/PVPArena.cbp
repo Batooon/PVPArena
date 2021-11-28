@@ -82,6 +82,60 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="F:/Projects 2021/PVPArena/ActiveEntity.cpp">
+			<Option target="PVPArena"/>
+		</Unit>
+		<Unit filename="F:/Projects 2021/PVPArena/ActiveEntity.h">
+			<Option target="PVPArena"/>
+		</Unit>
+		<Unit filename="F:/Projects 2021/PVPArena/Category.h">
+			<Option target="PVPArena"/>
+		</Unit>
+		<Unit filename="F:/Projects 2021/PVPArena/Command.cpp">
+			<Option target="PVPArena"/>
+		</Unit>
+		<Unit filename="F:/Projects 2021/PVPArena/Command.h">
+			<Option target="PVPArena"/>
+		</Unit>
+		<Unit filename="F:/Projects 2021/PVPArena/Entity.cpp">
+			<Option target="PVPArena"/>
+		</Unit>
+		<Unit filename="F:/Projects 2021/PVPArena/Entity.h">
+			<Option target="PVPArena"/>
+		</Unit>
+		<Unit filename="F:/Projects 2021/PVPArena/Game.cpp">
+			<Option target="PVPArena"/>
+		</Unit>
+		<Unit filename="F:/Projects 2021/PVPArena/Game.h">
+			<Option target="PVPArena"/>
+		</Unit>
+		<Unit filename="F:/Projects 2021/PVPArena/Player.cpp">
+			<Option target="PVPArena"/>
+		</Unit>
+		<Unit filename="F:/Projects 2021/PVPArena/Player.h">
+			<Option target="PVPArena"/>
+		</Unit>
+		<Unit filename="F:/Projects 2021/PVPArena/ResourceHolder.h">
+			<Option target="PVPArena"/>
+		</Unit>
+		<Unit filename="F:/Projects 2021/PVPArena/ResourceHolder.inl">
+			<Option target="PVPArena"/>
+		</Unit>
+		<Unit filename="F:/Projects 2021/PVPArena/Resources.h">
+			<Option target="PVPArena"/>
+		</Unit>
+		<Unit filename="F:/Projects 2021/PVPArena/SceneNode.cpp">
+			<Option target="PVPArena"/>
+		</Unit>
+		<Unit filename="F:/Projects 2021/PVPArena/SceneNode.h">
+			<Option target="PVPArena"/>
+		</Unit>
+		<Unit filename="F:/Projects 2021/PVPArena/World.cpp">
+			<Option target="PVPArena"/>
+		</Unit>
+		<Unit filename="F:/Projects 2021/PVPArena/World.h">
+			<Option target="PVPArena"/>
+		</Unit>
 		<Unit filename="F:/Projects 2021/PVPArena/main.cpp">
 			<Option target="PVPArena"/>
 		</Unit>

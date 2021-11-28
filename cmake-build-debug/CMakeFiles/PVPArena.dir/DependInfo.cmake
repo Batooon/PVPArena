@@ -8,6 +8,13 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "F:/Projects 2021/PVPArena/ActiveEntity.cpp" "F:/Projects 2021/PVPArena/cmake-build-debug/CMakeFiles/PVPArena.dir/ActiveEntity.cpp.obj"
+  "F:/Projects 2021/PVPArena/Command.cpp" "F:/Projects 2021/PVPArena/cmake-build-debug/CMakeFiles/PVPArena.dir/Command.cpp.obj"
+  "F:/Projects 2021/PVPArena/Entity.cpp" "F:/Projects 2021/PVPArena/cmake-build-debug/CMakeFiles/PVPArena.dir/Entity.cpp.obj"
+  "F:/Projects 2021/PVPArena/Game.cpp" "F:/Projects 2021/PVPArena/cmake-build-debug/CMakeFiles/PVPArena.dir/Game.cpp.obj"
+  "F:/Projects 2021/PVPArena/Player.cpp" "F:/Projects 2021/PVPArena/cmake-build-debug/CMakeFiles/PVPArena.dir/Player.cpp.obj"
+  "F:/Projects 2021/PVPArena/SceneNode.cpp" "F:/Projects 2021/PVPArena/cmake-build-debug/CMakeFiles/PVPArena.dir/SceneNode.cpp.obj"
+  "F:/Projects 2021/PVPArena/World.cpp" "F:/Projects 2021/PVPArena/cmake-build-debug/CMakeFiles/PVPArena.dir/World.cpp.obj"
   "F:/Projects 2021/PVPArena/main.cpp" "F:/Projects 2021/PVPArena/cmake-build-debug/CMakeFiles/PVPArena.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

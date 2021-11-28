@@ -128,6 +128,174 @@ PVPArena/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/build
 .PHONY : PVPArena/fast
 
+ActiveEntity.obj: ActiveEntity.cpp.obj
+.PHONY : ActiveEntity.obj
+
+# target to build an object file
+ActiveEntity.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/ActiveEntity.cpp.obj
+.PHONY : ActiveEntity.cpp.obj
+
+ActiveEntity.i: ActiveEntity.cpp.i
+.PHONY : ActiveEntity.i
+
+# target to preprocess a source file
+ActiveEntity.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/ActiveEntity.cpp.i
+.PHONY : ActiveEntity.cpp.i
+
+ActiveEntity.s: ActiveEntity.cpp.s
+.PHONY : ActiveEntity.s
+
+# target to generate assembly for a file
+ActiveEntity.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/ActiveEntity.cpp.s
+.PHONY : ActiveEntity.cpp.s
+
+Command.obj: Command.cpp.obj
+.PHONY : Command.obj
+
+# target to build an object file
+Command.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/Command.cpp.obj
+.PHONY : Command.cpp.obj
+
+Command.i: Command.cpp.i
+.PHONY : Command.i
+
+# target to preprocess a source file
+Command.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/Command.cpp.i
+.PHONY : Command.cpp.i
+
+Command.s: Command.cpp.s
+.PHONY : Command.s
+
+# target to generate assembly for a file
+Command.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/Command.cpp.s
+.PHONY : Command.cpp.s
+
+Entity.obj: Entity.cpp.obj
+.PHONY : Entity.obj
+
+# target to build an object file
+Entity.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/Entity.cpp.obj
+.PHONY : Entity.cpp.obj
+
+Entity.i: Entity.cpp.i
+.PHONY : Entity.i
+
+# target to preprocess a source file
+Entity.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/Entity.cpp.i
+.PHONY : Entity.cpp.i
+
+Entity.s: Entity.cpp.s
+.PHONY : Entity.s
+
+# target to generate assembly for a file
+Entity.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/Entity.cpp.s
+.PHONY : Entity.cpp.s
+
+Game.obj: Game.cpp.obj
+.PHONY : Game.obj
+
+# target to build an object file
+Game.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/Game.cpp.obj
+.PHONY : Game.cpp.obj
+
+Game.i: Game.cpp.i
+.PHONY : Game.i
+
+# target to preprocess a source file
+Game.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/Game.cpp.i
+.PHONY : Game.cpp.i
+
+Game.s: Game.cpp.s
+.PHONY : Game.s
+
+# target to generate assembly for a file
+Game.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/Game.cpp.s
+.PHONY : Game.cpp.s
+
+Player.obj: Player.cpp.obj
+.PHONY : Player.obj
+
+# target to build an object file
+Player.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/Player.cpp.obj
+.PHONY : Player.cpp.obj
+
+Player.i: Player.cpp.i
+.PHONY : Player.i
+
+# target to preprocess a source file
+Player.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/Player.cpp.i
+.PHONY : Player.cpp.i
+
+Player.s: Player.cpp.s
+.PHONY : Player.s
+
+# target to generate assembly for a file
+Player.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/Player.cpp.s
+.PHONY : Player.cpp.s
+
+SceneNode.obj: SceneNode.cpp.obj
+.PHONY : SceneNode.obj
+
+# target to build an object file
+SceneNode.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/SceneNode.cpp.obj
+.PHONY : SceneNode.cpp.obj
+
+SceneNode.i: SceneNode.cpp.i
+.PHONY : SceneNode.i
+
+# target to preprocess a source file
+SceneNode.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/SceneNode.cpp.i
+.PHONY : SceneNode.cpp.i
+
+SceneNode.s: SceneNode.cpp.s
+.PHONY : SceneNode.s
+
+# target to generate assembly for a file
+SceneNode.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/SceneNode.cpp.s
+.PHONY : SceneNode.cpp.s
+
+World.obj: World.cpp.obj
+.PHONY : World.obj
+
+# target to build an object file
+World.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/World.cpp.obj
+.PHONY : World.cpp.obj
+
+World.i: World.cpp.i
+.PHONY : World.i
+
+# target to preprocess a source file
+World.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/World.cpp.i
+.PHONY : World.cpp.i
+
+World.s: World.cpp.s
+.PHONY : World.s
+
+# target to generate assembly for a file
+World.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\PVPArena.dir\build.make CMakeFiles/PVPArena.dir/World.cpp.s
+.PHONY : World.cpp.s
+
 main.obj: main.cpp.obj
 .PHONY : main.obj
 
@@ -161,6 +329,27 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... PVPArena
+	@echo ... ActiveEntity.obj
+	@echo ... ActiveEntity.i
+	@echo ... ActiveEntity.s
+	@echo ... Command.obj
+	@echo ... Command.i
+	@echo ... Command.s
+	@echo ... Entity.obj
+	@echo ... Entity.i
+	@echo ... Entity.s
+	@echo ... Game.obj
+	@echo ... Game.i
+	@echo ... Game.s
+	@echo ... Player.obj
+	@echo ... Player.i
+	@echo ... Player.s
+	@echo ... SceneNode.obj
+	@echo ... SceneNode.i
+	@echo ... SceneNode.s
+	@echo ... World.obj
+	@echo ... World.i
+	@echo ... World.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
