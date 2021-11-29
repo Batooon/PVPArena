@@ -33,11 +33,6 @@ void Soldier::LookAt(sf::Vector2f worldPosition)
 	this->setRotation(angle);
 }
 
-float Soldier::getSpeed() const
-{
-	return speed;
-}
-
 unsigned int Soldier::getCategory() const
 {
 	return Category::Player;

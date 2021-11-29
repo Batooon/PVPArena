@@ -29,10 +29,8 @@ public:
 	Soldier(Type type, const TextureHolder& textureHolder);
 
 	void LookAt(sf::Vector2f worldPosition);
-	float getSpeed() const;
 	unsigned int getCategory() const override;
 private:
-	const float speed = 250.f;
 	Type playerType;
 };
 
