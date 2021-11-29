@@ -1,3 +1,0 @@
-"F:\CLion 2021.2.1\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\PVPArena.dir/objects.a
-C:\PROGRA~1\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin\ar.exe cr CMakeFiles\PVPArena.dir/objects.a @CMakeFiles\PVPArena.dir\objects1.rsp
-C:\PROGRA~1\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin\g++.exe -g -Wl,--whole-archive CMakeFiles\PVPArena.dir/objects.a -Wl,--no-whole-archive -o PVPArena.exe -Wl,--out-implib,libPVPArena.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\PVPArena.dir\linklibs.rsp
