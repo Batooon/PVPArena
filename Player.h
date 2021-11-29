@@ -9,12 +9,28 @@
 #include "SFML/Graphics.hpp"
 #include "CommandQueue.h"
 #include "Soldier.h"
+#include <map>
 
 class Player
 {
 public:
-	void handleEvent(const sf::Event& event, CommandQueue& commands);
+	enum Action
+	{
+		MoveLeft,
+		MoveRight,
+		MoveUp,
+		MoveDown,
+		Count
+	};
+
+	Player();
 	void handleInput(CommandQueue& commands);
+
+private:
+	void initializeCommands();
+	const float playerSpeed = 300.f;
+	std::map<sf::Keyboard::Key, Action> keyBinds;
+	std::map<Action,Command> actionBinds;
 };
 
 
