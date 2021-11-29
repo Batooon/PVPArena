@@ -13,14 +13,14 @@ ActiveEntity::ActiveEntity(const sf::Texture& texture, const sf::IntRect& rect) 
 
 void ActiveEntity::setVelocity(float x, float y)
 {
-	velocity.x=x;
-	velocity.y=y;
+	velocity.x = x;
+	velocity.y = y;
 }
 
 void ActiveEntity::setVelocity(sf::Vector2f velocity)
 {
-	this->velocity.x=velocity.x;
-	this->velocity.y=velocity.y;
+	this->velocity.x = velocity.x;
+	this->velocity.y = velocity.y;
 }
 
 sf::Vector2f ActiveEntity::getVelocity() const
@@ -30,5 +30,10 @@ sf::Vector2f ActiveEntity::getVelocity() const
 
 void ActiveEntity::updateCurrent(sf::Time deltaTime)
 {
-	sf::Transformable::move(velocity * deltaTime.asSeconds());
+	move(velocity * deltaTime.asSeconds());
+}
+
+void ActiveEntity::accelerate(sf::Vector2f velocity)
+{
+	this->velocity += velocity;
 }
