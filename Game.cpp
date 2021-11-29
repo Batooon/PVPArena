@@ -23,8 +23,7 @@ void Game::run()
 		{
 			timeSinceLastUpdate -= TimePerFrame;
 			processEvents();
-			if(isPause == false)
-				update(TimePerFrame);
+			update(TimePerFrame);
 		}
 		render();
 	}
@@ -32,31 +31,14 @@ void Game::run()
 
 void Game::processEvents()
 {
-	CommandQueue& commands=world.getCommandQueue();
+	CommandQueue &commands = world.getCommandQueue();
 	sf::Event event{};
 	while(window.pollEvent(event))
 	{
-		player.handleEvent(event, commands);
-		switch(event.type)
-		{
-			case sf::Event::LostFocus:
-				isPause = true;
-				break;
-			case sf::Event::GainedFocus:
-				isPause = true;
-				break;
-//			case sf::Event::KeyPressed:
-//				handlePlayerInput(event.key.code, true);
-//				break;
-//			case sf::Event::KeyReleased:
-//				handlePlayerInput(event.key.code, false);
-//				break;
-			case sf::Event::Closed:
-				window.close();
-				break;
-		}
-		player.handleInput(commands);
+		if(event.type == sf::Event::Closed)
+			window.close();
 	}
+	player.handleInput(commands);
 }
 
 void Game::update(sf::Time deltaTime)
