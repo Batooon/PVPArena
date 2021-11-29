@@ -39,6 +39,9 @@ private:
 
 	void loadTextures();
 	void buildScene();
+	void clampWorldView();
+	void clampPlayerPosition();
+	sf::Vector2f getViewDeltaPosition(sf::Time deltaTime);
 
 	sf::RenderWindow& window;
 	sf::View worldView;
@@ -48,8 +51,7 @@ private:
 
 	sf::FloatRect worldBounds;
 	sf::Vector2f spawnPoint;
-	float cameraFollowSpeed;
-	Soldier* player;
+	Soldier* playerSoldier;
 	CommandQueue commandQueue;
 };
 

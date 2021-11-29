@@ -7,9 +7,9 @@
 World::World(sf::RenderWindow &window):
 		window(window),
 		worldView(window.getDefaultView()),
-		worldBounds(0.f, 0.f, worldView.getSize().x*3, worldView.getSize().y*3),
-		spawnPoint(worldBounds.width/2.f, worldBounds.height/2.f),
-		player(nullptr),
+		worldBounds(0.f, 0.f, worldView.getSize().x * 3, worldView.getSize().y * 3),
+		spawnPoint(worldBounds.width / 2.f, worldBounds.height / 2.f),
+		playerSoldier(nullptr),
 		commandQueue()
 {
 	loadTextures();
@@ -68,8 +68,8 @@ void World::buildScene()
 	}
 
 	std::unique_ptr<Soldier> newPlayer(new Soldier(Soldier::MagmaGun, textures));
-	player = newPlayer.get();
-	player->setPosition(spawnPoint);
+	playerSoldier = newPlayer.get();
+	playerSoldier->setPosition(spawnPoint);
 	sceneLayers[Ground]->attachChild(std::move(newPlayer));
 }
 
@@ -81,28 +81,62 @@ void World::draw()
 
 void World::update(sf::Time deltaTime)
 {
-	player->LookAt(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
-//	sf::Vector2i direction(0, 0);
-//	if(player->movingUp)
-//		direction.y = -1;
-//	if(player->movingDown)
-//		direction.y = 1;
-//	if(player->movingLeft)
-//		direction.x = -1;
-//	if(player->movingRight)
-//		direction.x = 1;
-//	sf::Vector2f velocity = Normalize(direction) * player->getSpeed();
-//	player->setVelocity(velocity);
-//	player->move(velocity * deltaTime.asSeconds());
-//	worldView.move(velocity * deltaTime.asSeconds());
+	playerSoldier->LookAt(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
+	playerSoldier->setVelocity(0.f, 0.f);
 
-	while(commandQueue.isEmpty()==false)
+	while(commandQueue.isEmpty() == false)
 		sceneGraph.onCommand(commandQueue.pop(), deltaTime);
 
+	sf::Vector2f velocity = playerSoldier->getVelocity();
+	if(velocity.x != 0.f && velocity.y != 0.f)
+		playerSoldier->setVelocity(velocity / std::sqrt(2.f));
+
+	sf::Vector2f positionDelta = getViewDeltaPosition(deltaTime);
+	worldView.move(positionDelta);
+
 	sceneGraph.update(deltaTime);
+	clampPlayerPosition();
+	clampWorldView();
 }
 
 CommandQueue &World::getCommandQueue()
 {
 	return commandQueue;
+}
+
+void World::clampWorldView()
+{
+	sf::FloatRect viewRect(worldView.getCenter() - worldView.getSize() / 2.f, worldView.getSize());
+	sf::Vector2f viewPosition(viewRect.left, viewRect.top);
+
+	viewPosition.x = std::max(viewPosition.x, worldBounds.left);
+	viewPosition.x = std::min(viewPosition.x, worldBounds.width - viewRect.width);
+	viewPosition.y = std::max(viewPosition.y, worldBounds.top);
+	viewPosition.y = std::min(viewPosition.y, worldBounds.height - viewRect.height);
+	worldView.setCenter(viewPosition + worldView.getSize() / 2.f);
+}
+
+void World::clampPlayerPosition()
+{
+	sf::Vector2f position(playerSoldier->getPosition());
+	sf::FloatRect playerBounds = playerSoldier->getLocalBounds();
+
+	position.x = std::max(position.x, worldBounds.left);
+	position.x = std::min(position.x, worldBounds.width - playerBounds.width);
+	position.y = std::max(position.y, worldBounds.top);
+	position.y = std::min(position.y, worldBounds.height - playerBounds.height);
+	playerSoldier->setPosition(position);
+}
+
+sf::Vector2f World::getViewDeltaPosition(sf::Time deltaTime)
+{
+	sf::FloatRect viewRect(worldView.getCenter(), worldView.getSize());
+	sf::Vector2f viewPosition(viewRect.left, viewRect.top);
+	sf::Vector2f positionDelta = playerSoldier->getVelocity() * deltaTime.asSeconds();
+	sf::Vector2f playerWorldPosition = playerSoldier->getPosition();
+	if(playerWorldPosition.x - viewPosition.x >= 0.001f)
+		positionDelta.x = 0;
+	if(playerWorldPosition.y - viewPosition.y >= 0.001f)
+		positionDelta.y = 0;
+	return positionDelta;
 }
