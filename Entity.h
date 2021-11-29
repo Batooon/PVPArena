@@ -19,6 +19,7 @@ class Entity : public SceneNode
 public:
 	explicit Entity(const sf::Texture& texture);
 	Entity(const sf::Texture& texture, const sf::IntRect& rect);
+	sf::FloatRect getLocalBounds() const;
 
 protected:
 	sf::Sprite sprite;

@@ -15,3 +15,8 @@ void Entity::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) cons
 {
 	target.draw(sprite, states);
 }
+
+sf::FloatRect Entity::getLocalBounds() const
+{
+	return sprite.getLocalBounds();
+}
