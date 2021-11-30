@@ -134,9 +134,17 @@ sf::Vector2f World::getViewDeltaPosition(sf::Time deltaTime)
 	sf::Vector2f viewPosition(viewRect.left, viewRect.top);
 	sf::Vector2f positionDelta = playerSoldier->getVelocity() * deltaTime.asSeconds();
 	sf::Vector2f playerWorldPosition = playerSoldier->getPosition();
-	if(playerWorldPosition.x - viewPosition.x >= 0.001f)
+	if(playerWorldPosition.x - viewPosition.x >= 0.01f &&
+	   worldBounds.width - (viewPosition.x + viewRect.width / 2.f) <= 0.01f)
 		positionDelta.x = 0;
-	if(playerWorldPosition.y - viewPosition.y >= 0.001f)
+	if(playerWorldPosition.x - viewPosition.x <= 0.01f &&
+	   (viewPosition.x - viewRect.width / 2.f) - worldBounds.left <= 0.01f)
+		positionDelta.x = 0;
+	if(playerWorldPosition.y - viewPosition.y >= 0.01f &&
+	   worldBounds.height - (viewPosition.y + viewRect.height / 2.f) <= 0.01f)
+		positionDelta.y = 0;
+	if(playerWorldPosition.y - viewPosition.y <= 0.01f &&
+	   (viewPosition.y - viewRect.height / 2.f) - worldBounds.top <= 0.01f)
 		positionDelta.y = 0;
 	return positionDelta;
 }
