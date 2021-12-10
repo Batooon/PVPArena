@@ -21,7 +21,7 @@ struct PlayerMover
 
 	void operator()(Soldier& soldier, sf::Time deltaTime) const
 	{
-		soldier.accelerate(velocity);
+		soldier.accelerate(velocity * soldier.getSpeed());
 	}
 
 	sf::Vector2f velocity;
@@ -42,10 +42,10 @@ Player::Player()
 
 void Player::initializeCommands()
 {
-	actionBinds[MoveLeft].action = derivedAction<Soldier>(PlayerMover(-playerSpeed, 0));
-	actionBinds[MoveRight].action = derivedAction<Soldier>(PlayerMover(playerSpeed, 0));
-	actionBinds[MoveUp].action = derivedAction<Soldier>(PlayerMover(0, -playerSpeed));
-	actionBinds[MoveDown].action = derivedAction<Soldier>(PlayerMover(0, playerSpeed));
+	actionBinds[MoveLeft].action = derivedAction<Soldier>(PlayerMover(-1, 0));
+	actionBinds[MoveRight].action = derivedAction<Soldier>(PlayerMover(1, 0));
+	actionBinds[MoveUp].action = derivedAction<Soldier>(PlayerMover(0, -1));
+	actionBinds[MoveDown].action = derivedAction<Soldier>(PlayerMover(0, 1));
 }
 
 void Player::handleInput(CommandQueue &commands)

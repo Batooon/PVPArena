@@ -28,7 +28,6 @@ public:
 
 private:
 	void initializeCommands();
-	const float playerSpeed = 300.f;
 	std::map<sf::Keyboard::Key, Action> keyBinds;
 	std::map<Action,Command> actionBinds;
 };
