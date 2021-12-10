@@ -24,10 +24,14 @@ public:
 	void setVelocity(float x, float y);
 	sf::Vector2f getVelocity() const;
 	void accelerate(sf::Vector2f velocity);
+	void dealDamage(int hp);
+	void heal(int hp);
+	bool isDead();
 
 private:
 	virtual void updateCurrent(sf::Time deltaTime) override;
 	sf::Vector2f velocity;
+	int health;
 };
 
 #endif //PVPARENA_ACTIVEENTITY_H

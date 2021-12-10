@@ -37,3 +37,18 @@ void ActiveEntity::accelerate(sf::Vector2f velocity)
 {
 	this->velocity += velocity;
 }
+
+void ActiveEntity::dealDamage(int hp)
+{
+	health -= hp;
+}
+
+void ActiveEntity::heal(int hp)
+{
+	health += hp;
+}
+
+bool ActiveEntity::isDead()
+{
+	return health <= 0;
+}
