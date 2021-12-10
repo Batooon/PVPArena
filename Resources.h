@@ -18,4 +18,12 @@ namespace Textures
 	};
 }
 
+namespace Fonts
+{
+	enum ID
+	{
+		Default
+	};
+}
+
 #endif //PVPARENA_RESOURCES_H
