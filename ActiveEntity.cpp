@@ -3,11 +3,13 @@
 //
 #include "ActiveEntity.h"
 
-ActiveEntity::ActiveEntity(const sf::Texture& texture) : Entity(texture)
+ActiveEntity::ActiveEntity(const sf::Texture& texture, const int health) : Entity(texture), health(health)
 {
 }
 
-ActiveEntity::ActiveEntity(const sf::Texture& texture, const sf::IntRect& rect) : Entity(texture, rect)
+ActiveEntity::ActiveEntity(const sf::Texture& texture, const int health, const sf::IntRect& rect) :
+Entity(texture, rect),
+health(health)
 {
 }
 

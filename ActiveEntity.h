@@ -18,8 +18,8 @@
 class ActiveEntity : public Entity
 {
 public:
-	explicit ActiveEntity(const sf::Texture& texture);
-	ActiveEntity(const sf::Texture& texture, const sf::IntRect& rect);
+	explicit ActiveEntity(const sf::Texture& texture, const int health);
+	ActiveEntity(const sf::Texture& texture, const int health, const sf::IntRect& rect);
 	void setVelocity(sf::Vector2f velocity);
 	void setVelocity(float x, float y);
 	sf::Vector2f getVelocity() const;
@@ -28,10 +28,12 @@ public:
 	void heal(int hp);
 	bool isDead();
 
+protected:
+	int health;
+
 private:
 	virtual void updateCurrent(sf::Time deltaTime) override;
 	sf::Vector2f velocity;
-	int health;
 };
 
 #endif //PVPARENA_ACTIVEENTITY_H
