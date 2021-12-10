@@ -3,6 +3,8 @@
 //
 #include "Soldier.h"
 
+std::vector<PlayerData> Data = initializePlayerData();
+
 Textures::ID toTextureID(Soldier::Type type)
 {
 	switch(type)
@@ -17,7 +19,7 @@ Textures::ID toTextureID(Soldier::Type type)
 }
 
 Soldier::Soldier(Type type, const ResourceHolder<sf::Texture, Textures::ID> & textureHolder) :
-ActiveEntity(textureHolder.get(toTextureID(type))),
+ActiveEntity(textureHolder.get(Data[playerType].Texture), Data[playerType].Health),
 playerType(type)
 {
 	sf::FloatRect localBounds = Entity::sprite.getLocalBounds();
@@ -36,4 +38,9 @@ void Soldier::LookAt(sf::Vector2f worldPosition)
 unsigned int Soldier::getCategory() const
 {
 	return Category::Player;
+}
+
+float Soldier::getSpeed()
+{
+	return Data[playerType].Speed;
 }
