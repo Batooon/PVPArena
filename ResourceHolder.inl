@@ -28,3 +28,4 @@ const Resource& ResourceHolder<Resource, Identifier>::get(Identifier id) const
 }
 
 typedef ResourceHolder<sf::Texture, Textures::ID> TextureHolder;
+typedef ResourceHolder<sf::Font, Fonts::ID> FontHolder;
