@@ -19,7 +19,7 @@ class SceneNode : public sf::Transformable, public sf::Drawable, private sf::Non
 {
 public:
 	typedef std::unique_ptr<SceneNode> Ptr;
-	SceneNode();
+	explicit SceneNode(Category::Type category = Category::None);
 	void attachChild(Ptr child);
 	Ptr removeChild(const SceneNode& node);
 	void update(sf::Time deltaTime, CommandQueue& commands);
@@ -27,6 +27,7 @@ public:
 	sf::Vector2f getWorldPosition() const;
 	virtual unsigned int getCategory() const;
 	void onCommand(const Command& command, sf::Time deltaTime);
+	virtual sf::FloatRect getBounds() const;
 
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -36,6 +37,7 @@ private:
 
 	std::vector<Ptr> children;
 	SceneNode* parent;
+	Category::Type defaultCategory;
 };
 
 #endif //PVPARENA_SCENENODE_H
