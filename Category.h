@@ -12,6 +12,8 @@ namespace Category
 		None = 0,
 		Scene = 1,
 		Player = 1 << 1,
+		Projectile = 1 << 2,
+		EnemyProjectile = 1 << 3
 	};
 }
 
