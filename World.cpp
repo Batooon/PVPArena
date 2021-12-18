@@ -89,7 +89,7 @@ void World::update(sf::Time deltaTime)
 
 	sf::Vector2f velocity = playerSoldier->getVelocity();
 	if(velocity.x != 0.f && velocity.y != 0.f)
-		playerSoldier->SetVelocity(velocity / std::sqrt(2.f));
+		playerSoldier->SetVelocity(velocity.x / std::sqrt(2.f), velocity.y / std::sqrt(2.f));
 
 	sf::Vector2f positionDelta = getViewDeltaPosition(deltaTime);
 	worldView.move(positionDelta);
