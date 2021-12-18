@@ -41,14 +41,14 @@ void World::buildScene()
 	sf::Texture &background = textures.get(Textures::Landscape);
 	sf::IntRect backgroundRect(worldBounds);
 	background.setRepeated(true);
-	std::unique_ptr<Entity> backgroundSprite(new Entity(background, backgroundRect));
+	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(background, backgroundRect));
 	backgroundSprite->setPosition(worldBounds.left, worldBounds.top);
 	sceneLayers[Background]->attachChild(move(backgroundSprite));
 
 	sf::Texture &tree = textures.get(Textures::Tree);
 	for(int i = 0; i < 150; i++)
 	{
-		std::unique_ptr<Entity> treeSprite(new Entity(tree));
+		std::unique_ptr<SpriteNode> treeSprite(new SpriteNode(tree));
 		sf::Vector2f position((float) rand() / RAND_MAX * (float) worldBounds.width,
 		                      (float) rand() / RAND_MAX * (float) worldBounds.height);
 		treeSprite->setPosition(position);
@@ -59,7 +59,7 @@ void World::buildScene()
 	sf::Texture &plant = textures.get(Textures::Leafs);
 	for(int i = 0; i < 250; i++)
 	{
-		std::unique_ptr<Entity> plantSprite(new Entity(plant));
+		std::unique_ptr<SpriteNode> plantSprite(new SpriteNode(plant));
 		sf::Vector2f position((float) rand() / RAND_MAX * (float) worldBounds.width,
 		                      (float) rand() / RAND_MAX * (float) worldBounds.height);
 		plantSprite->setPosition(position);
@@ -82,19 +82,19 @@ void World::draw()
 void World::update(sf::Time deltaTime)
 {
 	playerSoldier->LookAt(window.mapPixelToCoords(sf::Mouse::getPosition(window)));
-	playerSoldier->setVelocity(0.f, 0.f);
+	playerSoldier->SetVelocity(0.f, 0.f);
 
 	while(commandQueue.isEmpty() == false)
 		sceneGraph.onCommand(commandQueue.pop(), deltaTime);
 
 	sf::Vector2f velocity = playerSoldier->getVelocity();
 	if(velocity.x != 0.f && velocity.y != 0.f)
-		playerSoldier->setVelocity(velocity / std::sqrt(2.f));
+		playerSoldier->SetVelocity(velocity / std::sqrt(2.f));
 
 	sf::Vector2f positionDelta = getViewDeltaPosition(deltaTime);
 	worldView.move(positionDelta);
 
-	sceneGraph.update(deltaTime);
+	sceneGraph.update(deltaTime, commandQueue);
 	clampPlayerPosition();
 	clampWorldView();
 }
@@ -119,7 +119,7 @@ void World::clampWorldView()
 void World::clampPlayerPosition()
 {
 	sf::Vector2f position(playerSoldier->getPosition());
-	sf::FloatRect playerBounds = playerSoldier->getLocalBounds();
+	sf::FloatRect playerBounds = playerSoldier->getBounds();
 
 	position.x = std::max(position.x, worldBounds.left);
 	position.x = std::min(position.x, worldBounds.width - playerBounds.width);

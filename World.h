@@ -17,6 +17,7 @@
 #include "Soldier.h"
 #include "Resources.h"
 #include "CommandQueue.h"
+#include "SpriteNode.h"
 
 class World:sf::NonCopyable
 {
