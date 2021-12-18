@@ -11,6 +11,8 @@ Projectile::Projectile(Projectile::Type type, const TextureHolder &textureHolder
 , type(type)
 , sprite(textureHolder.get(projectileData[type].Texture))
 {
+	sf::FloatRect localBounds = sprite.getLocalBounds();
+	this->setOrigin(localBounds.width / 2.f, localBounds.height / 2.f);
 }
 
 unsigned int Projectile::getCategory() const
