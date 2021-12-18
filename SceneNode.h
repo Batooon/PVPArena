@@ -13,6 +13,7 @@
 #include <iostream>
 #include "Command.h"
 #include "Category.h"
+#include "CommandQueue.h"
 
 class SceneNode : public sf::Transformable, public sf::Drawable, private sf::NonCopyable
 {
@@ -21,7 +22,7 @@ public:
 	SceneNode();
 	void attachChild(Ptr child);
 	Ptr removeChild(const SceneNode& node);
-	void update(sf::Time deltaTime);
+	void update(sf::Time deltaTime, CommandQueue& commands);
 	sf::Transform getWorldTransform() const;
 	sf::Vector2f getWorldPosition() const;
 	virtual unsigned int getCategory() const;
@@ -30,8 +31,8 @@ public:
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
-	virtual void updateCurrent(sf::Time deltaTime);
-	void updateChildren(sf::Time deltaTime);
+	virtual void updateCurrent(sf::Time deltaTime, CommandQueue& commands);
+	void updateChildren(sf::Time deltaTime, CommandQueue& commands);
 
 	std::vector<Ptr> children;
 	SceneNode* parent;

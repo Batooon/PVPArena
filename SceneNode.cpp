@@ -37,20 +37,20 @@ void SceneNode::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) c
 {
 }
 
-void SceneNode::update(sf::Time deltaTime)
+void SceneNode::update(sf::Time deltaTime, CommandQueue& commands)
 {
-	updateCurrent(deltaTime);
-	updateChildren(deltaTime);
+	updateCurrent(deltaTime, commands);
+	updateChildren(deltaTime, commands);
 }
 
-void SceneNode::updateCurrent(sf::Time deltaTime)
+void SceneNode::updateCurrent(sf::Time deltaTime, CommandQueue& commands)
 {
 }
 
-void SceneNode::updateChildren(sf::Time deltaTime)
+void SceneNode::updateChildren(sf::Time deltaTime, CommandQueue& commands)
 {
 	for(const auto& child : children)
-		child->update(deltaTime);
+		child->update(deltaTime, commands);
 }
 
 sf::Transform SceneNode::getWorldTransform() const
