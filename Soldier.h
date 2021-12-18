@@ -34,11 +34,17 @@ public:
 	unsigned int getCategory() const override;
 	float getSpeed();
 	sf::FloatRect getBounds() const override;
+	void Fire();
+	void checkFire(sf::Time deltaTime, CommandQueue& commands);
 private:
 	void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
 	void updateCurrent(sf::Time deltaTime, CommandQueue& commands) override;
 	Type playerType;
 	sf::Sprite sprite;
+	bool isFiring;
+	sf::Time fireCountdown;
+	Command fireCommand;
+	int fireRate;
 };
 
 #endif //PVPARENA_SOLDIER_H

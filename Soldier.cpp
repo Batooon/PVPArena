@@ -22,9 +22,18 @@ Soldier::Soldier(Type type, const ResourceHolder<sf::Texture, Textures::ID> & te
 : Entity(soldierData[type].Health)
 , playerType(type)
 , sprite(textureHolder.get(soldierData[type].Texture))
+, isFiring(false)
+, fireCountdown(sf::Time::Zero)
+, fireRate(1)
 {
 	sf::FloatRect localBounds = sprite.getLocalBounds();
 	this->setOrigin(localBounds.width / 2.f, localBounds.height / 2.f);
+
+	fireCommand.category=Category::Scene;
+	fireCommand.action=[this, &textureHolder](SceneNode& node, sf::Time deltaTime)
+	{
+		//SpawnBullet
+	};
 }
 
 void Soldier::LookAt(sf::Vector2f worldPosition)
@@ -64,4 +73,23 @@ void Soldier::updateCurrent(sf::Time deltaTime, CommandQueue &commands)
 sf::FloatRect Soldier::getBounds() const
 {
 	return getWorldTransform().transformRect(sprite.getGlobalBounds());
+}
+
+void Soldier::Fire()
+{
+	isFiring = true;
+}
+
+void Soldier::checkFire(sf::Time deltaTime, CommandQueue& commands)
+{
+	if(isFiring && fireCountdown <= sf::Time::Zero)
+	{
+		commands.push(fireCommand);
+		fireCountdown += sf::seconds(1.f / (fireRate + 1));
+		isFiring = false;
+	}
+	else if(fireCountdown > sf::Time::Zero)
+	{
+		fireCountdown -= deltaTime;
+	}
 }
