@@ -14,7 +14,8 @@ namespace Textures
 		Leafs,
 		DoubleGun,
 		LaserGun,
-		MagmaGun
+		MagmaGun,
+		Bullet
 	};
 }
 
