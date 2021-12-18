@@ -3,7 +3,7 @@
 //
 #include "Soldier.h"
 
-std::vector<PlayerData> Data = initializePlayerData();
+std::vector<PlayerData> soldierData = initializePlayerData();
 
 Textures::ID toTextureID(Soldier::Type type)
 {
@@ -19,9 +19,9 @@ Textures::ID toTextureID(Soldier::Type type)
 }
 
 Soldier::Soldier(Type type, const ResourceHolder<sf::Texture, Textures::ID> & textureHolder)
-: Entity(Data[type].Health)
+: Entity(soldierData[type].Health)
 , playerType(type)
-, sprite(textureHolder.get(Data[type].Texture))
+, sprite(textureHolder.get(soldierData[type].Texture))
 {
 	sf::FloatRect localBounds = sprite.getLocalBounds();
 	this->setOrigin(localBounds.width / 2.f, localBounds.height / 2.f);
@@ -43,7 +43,7 @@ unsigned int Soldier::getCategory() const
 
 float Soldier::getSpeed()
 {
-	return Data[playerType].Speed;
+	return soldierData[playerType].Speed;
 }
 
 void Soldier::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const
@@ -59,4 +59,9 @@ void Soldier::updateCurrent(sf::Time deltaTime, CommandQueue &commands)
 		return;
 	}
 	Entity::updateCurrent(deltaTime, commands);
+}
+
+sf::FloatRect Soldier::getBounds() const
+{
+	return getWorldTransform().transformRect(sprite.getGlobalBounds());
 }

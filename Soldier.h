@@ -33,6 +33,7 @@ public:
 	void LookAt(sf::Vector2f worldPosition);
 	unsigned int getCategory() const override;
 	float getSpeed();
+	sf::FloatRect getBounds() const override;
 private:
 	void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
 	void updateCurrent(sf::Time deltaTime, CommandQueue& commands) override;
