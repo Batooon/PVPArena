@@ -3,13 +3,13 @@
 //
 #include "SceneNode.h"
 
-SceneNode::SceneNode() : children(), parent(nullptr)
+SceneNode::SceneNode(Category::Type category) : children(), parent(nullptr), defaultCategory(category)
 {
 }
 
 void SceneNode::attachChild(Ptr child)
 {
-	child->parent=this;
+	child->parent = this;
 	children.push_back(std::move(child));
 }
 
@@ -78,4 +78,9 @@ void SceneNode::onCommand(const Command& command, sf::Time deltaTime)
 		command.action(*this, deltaTime);
 	for(auto& child : children)
 		child->onCommand(command, deltaTime);
+}
+
+sf::FloatRect SceneNode::getBounds() const
+{
+	return {};
 }
