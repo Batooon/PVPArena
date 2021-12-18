@@ -5,7 +5,6 @@
 #ifndef PVPARENA_SOLDIER_H
 #define PVPARENA_SOLDIER_H
 
-#include "ActiveEntity.h"
 #include "Entity.h"
 #include "Command.h"
 #include "SceneNode.h"
@@ -18,7 +17,7 @@
 #include "Data.h"
 #include <vector>
 
-class Soldier : public ActiveEntity
+class Soldier : public Entity
 {
 public:
 	enum Type
@@ -35,7 +34,10 @@ public:
 	unsigned int getCategory() const override;
 	float getSpeed();
 private:
+	void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
+	void updateCurrent(sf::Time deltaTime, CommandQueue& commands) override;
 	Type playerType;
+	sf::Sprite sprite;
 };
 
 #endif //PVPARENA_SOLDIER_H
