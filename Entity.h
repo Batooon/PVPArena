@@ -13,19 +13,31 @@
 #include <cmath>
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "CommandQueue.h"
 
 class Entity : public SceneNode
 {
 public:
-	explicit Entity(const sf::Texture& texture);
-	Entity(const sf::Texture& texture, const sf::IntRect& rect);
-	sf::FloatRect getLocalBounds() const;
+	explicit Entity(int hp);
+	void SetVelocity(sf::Vector2f velocity);
+	void SetVelocity(float x, float y);
+	void accelerate(const sf::Vector2f& velocity);
+	void accelerate(float x, float y);
+	sf::Vector2f getVelocity() const;
+	void dealDamage(int hp);
+	void heal(int hp);
+	void Kill();
+	virtual bool isDead() const;
+	int getHp() const;
+//	sf::FloatRect getLocalBounds() const;
+//	float getMaxSpeed() const;
 
 protected:
-	sf::Sprite sprite;
+	void updateCurrent(sf::Time deltaTime, CommandQueue& commands) override;
 
 private:
-	void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
+	sf::Vector2f velocity;
+	int health;
 };
 
 #endif //PVPARENA_ENTITY_H
