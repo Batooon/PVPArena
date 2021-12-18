@@ -29,8 +29,6 @@ public:
 	void Kill();
 	virtual bool isDead() const;
 	int getHp() const;
-//	sf::FloatRect getLocalBounds() const;
-//	float getMaxSpeed() const;
 
 protected:
 	void updateCurrent(sf::Time deltaTime, CommandQueue& commands) override;
