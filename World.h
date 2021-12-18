@@ -14,7 +14,6 @@
 #include "SceneNode.h"
 #include "Command.h"
 #include "Entity.h"
-#include "ActiveEntity.h"
 #include "Soldier.h"
 #include "Resources.h"
 #include "CommandQueue.h"

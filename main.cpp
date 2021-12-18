@@ -4,7 +4,6 @@
 #include "ResourceHolder.h"
 #include "SceneNode.h"
 #include "Entity.h"
-#include "ActiveEntity.h"
 #include "Soldier.h"
 #include "World.h"
 #include "Game.h"
