@@ -30,7 +30,7 @@ public:
 private:
 	void initializeCommands();
 	std::map<sf::Keyboard::Key, Action> keyBinds;
-	std::map<Action,Command> actionBinds;
+	std::map<Action, Command> actionBinds;
 };
 
 

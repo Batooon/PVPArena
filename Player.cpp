@@ -33,7 +33,7 @@ Player::Player()
 	keyBinds[sf::Keyboard::D] = MoveRight;
 	keyBinds[sf::Keyboard::W] = MoveUp;
 	keyBinds[sf::Keyboard::S] = MoveDown;
-	keyBinds[sf::Keyboard::F] = Fire;
+	keyBinds[sf::Keyboard::Space] = Fire;
 
 	initializeCommands();
 
@@ -47,7 +47,7 @@ void Player::initializeCommands()
 	actionBinds[MoveRight].action = derivedAction<Soldier>(PlayerMover(1, 0));
 	actionBinds[MoveUp].action = derivedAction<Soldier>(PlayerMover(0, -1));
 	actionBinds[MoveDown].action = derivedAction<Soldier>(PlayerMover(0, 1));
-	actionBinds[Fire].action = derivedAction<Soldier>(std::bind(&Soldier::Fire, _1));
+	actionBinds[Fire].action = derivedAction<Soldier>([](Soldier& s, sf::Time deltaTime){s.Fire();});
 }
 
 void Player::handleInput(CommandQueue &commands)
