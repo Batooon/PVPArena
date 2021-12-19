@@ -7,11 +7,8 @@
 
 #include "Resources.h"
 #include <vector>
-#include "Soldier.h"
-#include "Projectile.h"
 
 class Soldier;
-class Projectile;
 
 struct PlayerData
 {

@@ -3,6 +3,8 @@
 //
 
 #include "Data.h"
+#include "Projectile.h"
+#include "Soldier.h"
 
 std::vector<PlayerData> initializePlayerData()
 {
