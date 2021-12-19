@@ -26,13 +26,14 @@ void World::loadTextures()
 	textures.load(Textures::Landscape, "KTT Series - Plant Biome/Grass.png");
 	textures.load(Textures::Leafs, "KTT Series - Plant Biome/GrassWithLeafs.png");
 	textures.load(Textures::Tree, "KTT Series - Plant Biome/Tree.png");
+	textures.load(Textures::Bullet, "tanknsoldier/icon/gem/gem-export1.png");
 }
 
 void World::buildScene()
 {
 	for(size_t i = 0; i < LayerCount; i++)
 	{
-		SceneNode::Ptr layer(new SceneNode());
+		SceneNode::Ptr layer(new SceneNode((i == Ground) ? Category::Scene : Category::None));
 		sceneLayers[i] = layer.get();
 
 		sceneGraph.attachChild(std::move(layer));
