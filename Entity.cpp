@@ -3,36 +3,13 @@
 //
 #include "Entity.h"
 
-//Entity::Entity(const sf::Texture& texture) : sprite(texture)
-//{
-//}
-//
-//Entity::Entity(const sf::Texture& texture, const sf::IntRect& rect) : sprite(texture, rect)
-//{
-//}
-//
-//void Entity::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const
-//{
-//	target.draw(sprite, states);
-//}
-//
-//sf::FloatRect Entity::getLocalBounds() const
-//{
-//	return sprite.getLocalBounds();
-//}
-//
-//float Entity:getMaxSpeed() const
-//{
-//	return speed;
-//};
-
 Entity::Entity(int hp):health(hp), velocity()
 {
 }
 
-void Entity::SetVelocity(sf::Vector2f velocity)
+void Entity::SetVelocity(const sf::Vector2f& velocity)
 {
-	velocity = velocity;
+	this->velocity = velocity;
 }
 
 void Entity::SetVelocity(float x, float y)
@@ -48,8 +25,8 @@ void Entity::accelerate(const sf::Vector2f& velocity)
 
 void Entity::accelerate(float x, float y)
 {
-	velocity.x+=x;
-	velocity.y+=y;
+	velocity.x += x;
+	velocity.y += y;
 }
 
 sf::Vector2f Entity::getVelocity() const

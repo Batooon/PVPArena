@@ -19,7 +19,7 @@ class Entity : public SceneNode
 {
 public:
 	explicit Entity(int hp);
-	void SetVelocity(sf::Vector2f velocity);
+	void SetVelocity(const sf::Vector2f& velocity);
 	void SetVelocity(float x, float y);
 	void accelerate(const sf::Vector2f& velocity);
 	void accelerate(float x, float y);
