@@ -27,9 +27,9 @@ void SceneNode::draw(sf::RenderTarget &target, sf::RenderStates states) const
 {
 	states.transform *= getTransform();
 	drawCurrent(target, states);
-	for(const auto& it : children)
+	for(const Ptr& child : children)
 	{
-		it->draw(target, states);
+		child->draw(target, states);
 	}
 }
 
@@ -49,7 +49,7 @@ void SceneNode::updateCurrent(sf::Time deltaTime, CommandQueue& commands)
 
 void SceneNode::updateChildren(sf::Time deltaTime, CommandQueue& commands)
 {
-	for(const auto& child : children)
+	for(const Ptr& child : children)
 		child->update(deltaTime, commands);
 }
 
@@ -69,12 +69,13 @@ sf::Vector2f SceneNode::getWorldPosition() const
 
 unsigned int SceneNode::getCategory() const
 {
-	return Category::Scene;
+	return defaultCategory;
 }
 
 void SceneNode::onCommand(const Command& command, sf::Time deltaTime)
 {
-	if(command.category & getCategory())
+	unsigned int category = getCategory();
+	if(command.category & category)
 		command.action(*this, deltaTime);
 	for(auto& child : children)
 		child->onCommand(command, deltaTime);
@@ -83,4 +84,14 @@ void SceneNode::onCommand(const Command& command, sf::Time deltaTime)
 sf::FloatRect SceneNode::getBounds() const
 {
 	return {};
+}
+
+void SceneNode::attachToParent(SceneNode::Ptr node)
+{
+	parent->attachChild(std::move(node));
+}
+
+bool SceneNode::collided(const SceneNode &node1, const SceneNode &node2)
+{
+	return node1.getBounds().intersects(node2.getBounds());
 }

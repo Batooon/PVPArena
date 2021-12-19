@@ -28,6 +28,8 @@ public:
 	virtual unsigned int getCategory() const;
 	void onCommand(const Command& command, sf::Time deltaTime);
 	virtual sf::FloatRect getBounds() const;
+	void attachToParent(Ptr node);
+	bool collided(const SceneNode& node1, const SceneNode& node2);
 
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -37,7 +39,7 @@ private:
 
 	std::vector<Ptr> children;
 	SceneNode* parent;
-	Category::Type defaultCategory;
+	Category::Type defaultCategory = Category::None;
 };
 
 #endif //PVPARENA_SCENENODE_H
