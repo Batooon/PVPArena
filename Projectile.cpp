@@ -6,7 +6,7 @@
 
 std::vector<ProjectileData> projectileData = initializeProjectileData();
 
-Projectile::Projectile(Projectile::Type type, const TextureHolder &textureHolder)
+Projectile::Projectile(Type type, const TextureHolder &textureHolder)
 : Entity(1)
 , type(type)
 , sprite(textureHolder.get(projectileData[type].Texture))
