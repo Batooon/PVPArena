@@ -24,15 +24,15 @@ Soldier::Soldier(Type type, const ResourceHolder<sf::Texture, Textures::ID> & te
 , sprite(textureHolder.get(soldierData[type].Texture))
 , isFiring(false)
 , fireCountdown(sf::Time::Zero)
-, fireRate(1)
+, fireRate(5)
 {
 	sf::FloatRect localBounds = sprite.getLocalBounds();
 	this->setOrigin(localBounds.width / 2.f, localBounds.height / 2.f);
 
-	fireCommand.category=Category::Scene;
-	fireCommand.action=[this, &textureHolder](SceneNode& node, sf::Time deltaTime)
+	fireCommand.category = Category::Scene;
+	fireCommand.action = [this, &textureHolder](SceneNode& node, sf::Time deltaTime)
 	{
-		//SpawnBullet
+		SpawnBullet(node, textureHolder);
 	};
 }
 
@@ -43,6 +43,7 @@ void Soldier::LookAt(sf::Vector2f worldPosition)
 
 	float angle = -atan2f(facing.x, facing.y) * 180.f / M_PI;
 	this->setRotation(angle);
+	facingNormalized = Normalize(facing);
 }
 
 unsigned int Soldier::getCategory() const
@@ -67,6 +68,8 @@ void Soldier::updateCurrent(sf::Time deltaTime, CommandQueue &commands)
 		//Destroy object from scene
 		return;
 	}
+	checkFire(deltaTime, commands);
+
 	Entity::updateCurrent(deltaTime, commands);
 }
 
@@ -85,11 +88,37 @@ void Soldier::checkFire(sf::Time deltaTime, CommandQueue& commands)
 	if(isFiring && fireCountdown <= sf::Time::Zero)
 	{
 		commands.push(fireCommand);
-		fireCountdown += sf::seconds(1.f / (fireRate + 1));
-		isFiring = false;
+		fireCountdown += sf::seconds(1.f / ((float)fireRate + 1.f));
 	}
 	else if(fireCountdown > sf::Time::Zero)
 	{
 		fireCountdown -= deltaTime;
 	}
+	isFiring = false;
+}
+
+void Soldier::CreateProjectile(SceneNode& node, Projectile::Type type, float offsetx, float offsety, const
+TextureHolder& textureHolder) const
+{
+	std::unique_ptr<Projectile> projectile(new Projectile(type, textureHolder));
+
+	sf::Vector2f offset(offsetx * sprite.getGlobalBounds().width + 30 * facingNormalized.x,
+	                    offsety * sprite.getGlobalBounds().height + 30 * facingNormalized.y);
+	sf::Vector2f velocity(facingNormalized * projectile->getSpeed());
+
+	sf::Vector2f position = getPosition() + offset;
+	projectile->setPosition(position + facingNormalized);
+	projectile->SetVelocity(velocity);
+	node.attachChild(std::move(projectile));
+}
+
+void Soldier::SpawnBullet(SceneNode &node, const TextureHolder &textureHolder) const
+{
+	Projectile::Type type = Projectile::Bullet;
+	CreateProjectile(node, type, 0.f, 0.f, textureHolder);
+}
+
+sf::Vector2f Soldier::getFacingDirection() const
+{
+	return facingNormalized;
 }
