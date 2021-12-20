@@ -44,7 +44,7 @@ void Entity::heal(int hp)
 	health+=hp;
 }
 
-bool Entity::isDead() const
+bool Entity::isDestroyed() const
 {
 	return health<=0;
 }

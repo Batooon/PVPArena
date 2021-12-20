@@ -63,7 +63,7 @@ void Soldier::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) con
 
 void Soldier::updateCurrent(sf::Time deltaTime, CommandQueue &commands)
 {
-	if(isDead())
+	if(Entity::isDestroyed())
 	{
 		//Destroy object from scene
 		return;

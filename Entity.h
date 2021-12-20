@@ -27,7 +27,7 @@ public:
 	void dealDamage(int hp);
 	void heal(int hp);
 	void Kill();
-	virtual bool isDead() const;
+	bool isDestroyed() const override;
 	int getHp() const;
 
 protected:
