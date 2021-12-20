@@ -42,6 +42,8 @@ private:
 	void clampWorldView();
 	void clampPlayerPosition();
 	sf::Vector2f getViewDeltaPosition(sf::Time deltaTime);
+	bool categoryMatches(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2);
+	void HandleCollisions();
 
 	sf::RenderWindow& window;
 	sf::View worldView;

@@ -95,6 +95,9 @@ void World::update(sf::Time deltaTime)
 	sf::Vector2f positionDelta = getViewDeltaPosition(deltaTime);
 	worldView.move(positionDelta);
 
+	HandleCollisions();
+	sceneGraph.removeDestroyedNodes();
+
 	sceneGraph.update(deltaTime, commandQueue);
 	clampPlayerPosition();
 	clampWorldView();
@@ -148,4 +151,42 @@ sf::Vector2f World::getViewDeltaPosition(sf::Time deltaTime)
 	   (viewPosition.y - viewRect.height / 2.f) - worldBounds.top <= 0.01f)
 		positionDelta.y = 0;
 	return positionDelta;
+}
+
+bool World::categoryMatches(SceneNode::Pair &colliders, Category::Type type1, Category::Type type2)
+{
+	unsigned int category1=colliders.first->getCategory();
+	unsigned int category2=colliders.second->getCategory();
+
+	if(type1&category1&&type2&category2)
+	{
+		return true;
+	}
+	else if(type1&category2&&type2&category1)
+	{
+		std::swap(colliders.first, colliders.second);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void World::HandleCollisions()
+{
+	std::set<SceneNode::Pair> collisions;
+	sceneGraph.checkSceneCollisions(sceneGraph, collisions);
+
+	for(SceneNode::Pair pair:collisions)
+	{
+		if(categoryMatches(pair, Category::Player, Category::EnemyProjectile))
+		{
+			auto& player = static_cast<Soldier&>(*pair.first);
+			auto& bullet = static_cast<Projectile&>(*pair.second);
+
+			player.dealDamage(bullet.getDamage());
+			bullet.Kill();
+		}
+	}
 }
