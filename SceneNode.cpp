@@ -95,3 +95,40 @@ bool SceneNode::collided(const SceneNode &node1, const SceneNode &node2)
 {
 	return node1.getBounds().intersects(node2.getBounds());
 }
+
+void SceneNode::checkNodeCollisions(SceneNode &node, std::set<Pair> &collisions)
+{
+	if(this!=&node&& collided(*this, node))
+		collisions.insert(std::minmax(this, &node));
+
+	for(Ptr& child:children)
+		child->checkNodeCollisions(node, collisions);
+}
+
+void SceneNode::checkSceneCollisions(SceneNode &sceneGraph, std::set<Pair> &collisions)
+{
+	if(defaultCategory == Category::Scene || defaultCategory == Category::None)
+		return;
+	checkNodeCollisions(sceneGraph, collisions);
+
+	for(Ptr& child:sceneGraph.children)
+		checkSceneCollisions(*child, collisions);
+}
+
+bool SceneNode::needToRemove() const
+{
+	return isDestroyed();
+}
+
+bool SceneNode::isDestroyed() const
+{
+	return false;
+}
+
+void SceneNode::removeDestroyedNodes()
+{
+	auto destroyed=std::remove_if(children.begin(), children.end(), std::mem_fn(&SceneNode::needToRemove));
+	children.erase(destroyed, children.end());
+
+	std::for_each(children.begin(), children.end(), std::mem_fn(&SceneNode::removeDestroyedNodes));
+}

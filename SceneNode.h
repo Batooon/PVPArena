@@ -14,11 +14,13 @@
 #include "Command.h"
 #include "Category.h"
 #include "CommandQueue.h"
+#include <set>
 
 class SceneNode : public sf::Transformable, public sf::Drawable, private sf::NonCopyable
 {
 public:
 	typedef std::unique_ptr<SceneNode> Ptr;
+	typedef std::pair<SceneNode*, SceneNode*> Pair;
 	explicit SceneNode(Category::Type category = Category::None);
 	void attachChild(Ptr child);
 	Ptr removeChild(const SceneNode& node);
@@ -30,7 +32,11 @@ public:
 	virtual sf::FloatRect getBounds() const;
 	void attachToParent(Ptr node);
 	bool collided(const SceneNode& node1, const SceneNode& node2);
-
+	void checkNodeCollisions(SceneNode& node, std::set<Pair>& collisions);
+	void checkSceneCollisions(SceneNode& sceneGraph, std::set<Pair>& collisions);
+	virtual bool isDestroyed() const;
+	bool needToRemove() const;
+	void removeDestroyedNodes();
 private:
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
